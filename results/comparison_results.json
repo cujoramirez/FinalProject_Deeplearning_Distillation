@@ -1,0 +1,24 @@
+{
+  "baseline": {
+    "model_name": "Baseline B0",
+    "top1_accuracy": 57.72,
+    "top5_accuracy": 84.84,
+    "f1_macro": 57.66518946346733,
+    "f1_weighted": 57.66518946346733,
+    "num_parameters": 4135648,
+    "size_mb": 15.936897277832031,
+    "inference_time_ms": 11.21652499999982,
+    "inference_std_ms": 2.3067898842091106
+  },
+  "distilled": {
+    "model_name": "Distilled B0",
+    "top1_accuracy": 62.97,
+    "top5_accuracy": 82.15,
+    "f1_macro": 63.1573523049954,
+    "f1_weighted": 63.15735230499537,
+    "num_parameters": 4135648,
+    "size_mb": 15.936897277832031,
+    "inference_time_ms": 12.000357000051736,
+    "inference_std_ms": 2.48550537830698
+  }
+}

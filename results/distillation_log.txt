@@ -1,0 +1,218 @@
+(base) C:\Users\Gading\Downloads\final_DL>python train_distillation.py
+Using device: cuda
+
+============================================================
+Loading dataset...
+============================================================
+Files already downloaded and verified
+Files already downloaded and verified
+CIFAR-100 loaded:
+  Training samples: 45000
+  Validation samples: 5000
+  Test samples: 10000
+  Number of classes: 100
+
+============================================================
+Creating models...
+============================================================
+Loading teacher model: efficientnet_b2
+model.safetensors: 100%|██████████████████████████████████████████████████████████| 36.8M/36.8M [00:04<00:00, 8.36MB/s]
+C:\Users\Gading\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:144: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\Gading\.cache\huggingface\hub\models--timm--efficientnet_b2.ra_in1k. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+  Parameters: 7,841,894
+Loading student model: efficientnet_b0
+  Parameters: 4,135,648
+
+Teacher parameters: 0 (frozen)
+Student parameters: 4,135,648 (trainable)
+
+============================================================
+Starting Knowledge Distillation Training
+Temperature: 4.0, Alpha: 0.7
+============================================================
+Epoch 1 [Train]: 100%|████████████████████| 2813/2813 [04:03<00:00, 11.58it/s, loss=1.4375, acc@1=10.72%, acc@5=31.72%]
+Epoch 1 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.70it/s, loss=3.5997, acc@1=20.78%, acc@5=47.48%]
+
+Epoch 1/50 Summary:
+  Train Loss: 1.4375, Acc: 10.72%
+  Val Loss: 3.5997, Acc: 20.78%
+  LR: 0.001000
+  New best validation accuracy: 20.78%
+Epoch 2 [Train]: 100%|████████████████████| 2813/2813 [04:07<00:00, 11.35it/s, loss=1.2615, acc@1=27.00%, acc@5=57.73%]
+Epoch 2 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.64it/s, loss=2.8335, acc@1=36.66%, acc@5=69.50%]
+
+Epoch 2/50 Summary:
+  Train Loss: 1.2615, Acc: 27.00%
+  Val Loss: 2.8335, Acc: 36.66%
+  LR: 0.000999
+  New best validation accuracy: 36.66%
+Epoch 3 [Train]: 100%|████████████████████| 2813/2813 [04:08<00:00, 11.33it/s, loss=1.1167, acc@1=40.69%, acc@5=72.10%]
+Epoch 3 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.69it/s, loss=2.3711, acc@1=48.18%, acc@5=77.76%]
+
+Epoch 3/50 Summary:
+  Train Loss: 1.1167, Acc: 40.69%
+  Val Loss: 2.3711, Acc: 48.18%
+  LR: 0.000996
+  New best validation accuracy: 48.18%
+Epoch 4 [Train]: 100%|████████████████████| 2813/2813 [04:09<00:00, 11.29it/s, loss=1.0104, acc@1=50.69%, acc@5=79.77%]
+Epoch 4 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.63it/s, loss=2.1402, acc@1=53.28%, acc@5=81.34%]
+
+Epoch 4/50 Summary:
+  Train Loss: 1.0104, Acc: 50.69%
+  Val Loss: 2.1402, Acc: 53.28%
+  LR: 0.000991
+  New best validation accuracy: 53.28%
+Epoch 5 [Train]: 100%|████████████████████| 2813/2813 [04:09<00:00, 11.29it/s, loss=0.9277, acc@1=58.01%, acc@5=84.64%]
+Epoch 5 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.66it/s, loss=1.9997, acc@1=56.40%, acc@5=83.58%]
+
+Epoch 5/50 Summary:
+  Train Loss: 0.9277, Acc: 58.01%
+  Val Loss: 1.9997, Acc: 56.40%
+  LR: 0.000984
+  New best validation accuracy: 56.40%
+Epoch 6 [Train]: 100%|████████████████████| 2813/2813 [04:09<00:00, 11.30it/s, loss=0.8585, acc@1=64.62%, acc@5=88.35%]
+Epoch 6 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.70it/s, loss=1.9180, acc@1=59.08%, acc@5=84.46%]
+
+Epoch 6/50 Summary:
+  Train Loss: 0.8585, Acc: 64.62%
+  Val Loss: 1.9180, Acc: 59.08%
+  LR: 0.000976
+  New best validation accuracy: 59.08%
+Epoch 7 [Train]: 100%|████████████████████| 2813/2813 [04:08<00:00, 11.30it/s, loss=0.7943, acc@1=70.42%, acc@5=91.26%]
+Epoch 7 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.72it/s, loss=1.8500, acc@1=60.50%, acc@5=84.84%]
+
+Epoch 7/50 Summary:
+  Train Loss: 0.7943, Acc: 70.42%
+  Val Loss: 1.8500, Acc: 60.50%
+  LR: 0.000965
+  New best validation accuracy: 60.50%
+Epoch 8 [Train]: 100%|████████████████████| 2813/2813 [04:09<00:00, 11.30it/s, loss=0.7400, acc@1=75.42%, acc@5=93.54%]
+Epoch 8 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.68it/s, loss=1.8079, acc@1=61.06%, acc@5=85.18%]
+
+Epoch 8/50 Summary:
+  Train Loss: 0.7400, Acc: 75.42%
+  Val Loss: 1.8079, Acc: 61.06%
+  LR: 0.000952
+  New best validation accuracy: 61.06%
+Epoch 9 [Train]: 100%|████████████████████| 2813/2813 [04:08<00:00, 11.32it/s, loss=0.6890, acc@1=80.47%, acc@5=95.20%]
+Epoch 9 [Val]: 100%|████████████████████████| 313/313 [00:29<00:00, 10.70it/s, loss=1.8332, acc@1=60.52%, acc@5=84.96%]
+
+Epoch 9/50 Summary:
+  Train Loss: 0.6890, Acc: 80.47%
+  Val Loss: 1.8332, Acc: 60.52%
+  LR: 0.000938
+Epoch 10 [Train]: 100%|███████████████████| 2813/2813 [04:09<00:00, 11.29it/s, loss=0.6448, acc@1=84.51%, acc@5=96.52%]
+Epoch 10 [Val]: 100%|███████████████████████| 313/313 [00:29<00:00, 10.77it/s, loss=1.8158, acc@1=62.02%, acc@5=84.78%]
+
+Epoch 10/50 Summary:
+  Train Loss: 0.6448, Acc: 84.51%
+  Val Loss: 1.8158, Acc: 62.02%
+  LR: 0.000922
+  New best validation accuracy: 62.02%
+Epoch 11 [Train]: 100%|███████████████████| 2813/2813 [04:09<00:00, 11.30it/s, loss=0.6079, acc@1=88.20%, acc@5=97.41%]
+Epoch 11 [Val]: 100%|███████████████████████| 313/313 [00:29<00:00, 10.65it/s, loss=1.8286, acc@1=62.02%, acc@5=83.94%]
+
+Epoch 11/50 Summary:
+  Train Loss: 0.6079, Acc: 88.20%
+  Val Loss: 1.8286, Acc: 62.02%
+  LR: 0.000905
+Epoch 12 [Train]: 100%|███████████████████| 2813/2813 [04:08<00:00, 11.32it/s, loss=0.5797, acc@1=90.49%, acc@5=98.07%]
+Epoch 12 [Val]: 100%|███████████████████████| 313/313 [00:29<00:00, 10.66it/s, loss=1.8060, acc@1=62.50%, acc@5=84.76%]
+
+Epoch 12/50 Summary:
+  Train Loss: 0.5797, Acc: 90.49%
+  Val Loss: 1.8060, Acc: 62.50%
+  LR: 0.000885
+  New best validation accuracy: 62.50%
+Epoch 13 [Train]: 100%|███████████████████| 2813/2813 [04:08<00:00, 11.34it/s, loss=0.5552, acc@1=92.59%, acc@5=98.54%]
+Epoch 13 [Val]: 100%|███████████████████████| 313/313 [00:29<00:00, 10.76it/s, loss=1.8352, acc@1=62.54%, acc@5=84.22%]
+
+Epoch 13/50 Summary:
+  Train Loss: 0.5552, Acc: 92.59%
+  Val Loss: 1.8352, Acc: 62.54%
+  LR: 0.000864
+  New best validation accuracy: 62.54%
+Epoch 14 [Train]: 100%|███████████████████| 2813/2813 [04:07<00:00, 11.35it/s, loss=0.5347, acc@1=94.10%, acc@5=98.91%]
+Epoch 14 [Val]: 100%|███████████████████████| 313/313 [00:28<00:00, 10.80it/s, loss=1.8866, acc@1=61.42%, acc@5=83.36%]
+
+Epoch 14/50 Summary:
+  Train Loss: 0.5347, Acc: 94.10%
+  Val Loss: 1.8866, Acc: 61.42%
+  LR: 0.000842
+Epoch 15 [Train]: 100%|███████████████████| 2813/2813 [04:07<00:00, 11.37it/s, loss=0.5187, acc@1=95.25%, acc@5=99.18%]
+Epoch 15 [Val]: 100%|███████████████████████| 313/313 [00:29<00:00, 10.75it/s, loss=1.8530, acc@1=62.32%, acc@5=83.86%]
+
+Epoch 15/50 Summary:
+  Train Loss: 0.5187, Acc: 95.25%
+  Val Loss: 1.8530, Acc: 62.32%
+  LR: 0.000819
+Epoch 16 [Train]: 100%|███████████████████| 2813/2813 [04:06<00:00, 11.40it/s, loss=0.5047, acc@1=96.08%, acc@5=99.29%]
+Epoch 16 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:29<00:00, 10.66it/s, loss=1.8880, acc@1=61.78%, acc@5=83.08%]
+
+Epoch 16/50 Summary:
+  Train Loss: 0.5047, Acc: 96.08%
+  Val Loss: 1.8880, Acc: 61.78%
+  LR: 0.000794
+Epoch 17 [Train]: 100%|███████████████████████████████████████████████████████| 2813/2813 [04:07<00:00, 11.39it/s, loss=0.4937, acc@1=96.71%, acc@5=99.43%]
+Epoch 17 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:29<00:00, 10.71it/s, loss=1.8750, acc@1=62.60%, acc@5=83.28%]
+
+Epoch 17/50 Summary:
+  Train Loss: 0.4937, Acc: 96.71%
+  Val Loss: 1.8750, Acc: 62.60%
+  LR: 0.000768
+  New best validation accuracy: 62.60%
+Epoch 18 [Train]: 100%|███████████████████████████████████████████████████████| 2813/2813 [04:06<00:00, 11.40it/s, loss=0.4837, acc@1=97.27%, acc@5=99.48%]
+Epoch 18 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:29<00:00, 10.65it/s, loss=1.8945, acc@1=62.30%, acc@5=82.54%]
+
+Epoch 18/50 Summary:
+  Train Loss: 0.4837, Acc: 97.27%
+  Val Loss: 1.8945, Acc: 62.30%
+  LR: 0.000741
+Epoch 19 [Train]: 100%|███████████████████████████████████████████████████████| 2813/2813 [04:08<00:00, 11.34it/s, loss=0.4743, acc@1=97.65%, acc@5=99.57%]
+Epoch 19 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:29<00:00, 10.66it/s, loss=1.9054, acc@1=62.00%, acc@5=82.64%]
+
+Epoch 19/50 Summary:
+  Train Loss: 0.4743, Acc: 97.65%
+  Val Loss: 1.9054, Acc: 62.00%
+  LR: 0.000713
+Epoch 20 [Train]: 100%|███████████████████████████████████████████████████████| 2813/2813 [04:08<00:00, 11.32it/s, loss=0.4651, acc@1=98.00%, acc@5=99.69%]
+Epoch 20 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:28<00:00, 10.80it/s, loss=1.8900, acc@1=62.98%, acc@5=82.64%]
+
+Epoch 20/50 Summary:
+  Train Loss: 0.4651, Acc: 98.00%
+  Val Loss: 1.8900, Acc: 62.98%
+  LR: 0.000684
+  New best validation accuracy: 62.98%
+Epoch 21 [Train]: 100%|███████████████████████████████████████████████████████| 2813/2813 [04:08<00:00, 11.34it/s, loss=0.4586, acc@1=98.34%, acc@5=99.72%]
+Epoch 21 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:31<00:00,  9.94it/s, loss=1.8781, acc@1=62.38%, acc@5=83.12%]
+
+Epoch 21/50 Summary:
+  Train Loss: 0.4586, Acc: 98.34%
+  Val Loss: 1.8781, Acc: 62.38%
+  LR: 0.000655
+Epoch 22 [Train]: 100%|███████████████████████████████████████████████████████| 2813/2813 [04:07<00:00, 11.37it/s, loss=0.4517, acc@1=98.54%, acc@5=99.77%]
+Epoch 22 [Val]: 100%|███████████████████████████████████████████████████████████| 313/313 [00:29<00:00, 10.63it/s, loss=1.9144, acc@1=62.88%, acc@5=82.30%]
+
+Epoch 22/50 Summary:
+  Train Loss: 0.4517, Acc: 98.54%
+  Val Loss: 1.9144, Acc: 62.88%
+  LR: 0.000624
+
+Early stopping triggered at epoch 22
+
+Training completed in 101.76 minutes
+Best validation accuracy: 62.98%
+Training history saved to ./results\distillation_history.json
+
+============================================================
+Final Test Evaluation
+============================================================
+C:\Users\Gading\Downloads\final_DL\train_distillation.py:307: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  best_checkpoint = torch.load(
+Epoch 0 [Val]: 100%|████████████████████████████████████████████████████████████| 625/625 [00:31<00:00, 20.05it/s, loss=1.8956, acc@1=62.97%, acc@5=82.15%]
+
+Test Results:
+  Loss: 1.8956
+  Top-1 Accuracy: 62.97%
+  Top-5 Accuracy: 82.15%

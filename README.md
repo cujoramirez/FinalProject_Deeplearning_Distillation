@@ -118,12 +118,6 @@ After training, you should see:
 - Use smaller dataset (Flowers102)
 - Ensure CUDA is being used
 
-## For Your Colleagues
-
-This project is designed for team collaboration:
-- **Explainability team**: Use saved models in `checkpoints/` for GradCAM, SHAP, etc.
-- **Demo app team**: Load `best_model.pth` for inference in Streamlit/Flask
-- **Report team**: Use plots in `results/` and `comparison_report.txt`
 
 ## References
 

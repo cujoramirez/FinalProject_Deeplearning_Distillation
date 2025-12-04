@@ -1,0 +1,118 @@
+(base) C:\Users\Gading\Downloads\final_DL>python evaluate.py
+============================================================
+Loading test data...
+============================================================
+Files already downloaded and verified
+Files already downloaded and verified
+CIFAR-100 loaded:
+  Training samples: 45000
+  Validation samples: 5000
+  Test samples: 10000
+  Number of classes: 100
+
+============================================================
+Loading trained models...
+============================================================
+Loading student model: efficientnet_b0
+  Parameters: 4,135,648
+Loading student model: efficientnet_b0
+  Parameters: 4,135,648
+C:\Users\Gading\Downloads\final_DL\utils.py:129: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_path, map_location=device)
+
+============================================================
+Evaluating models...
+============================================================
+
+Evaluating Baseline B0...
+Testing: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 625/625 [00:42<00:00, 14.73it/s]
+
+Baseline B0 Results:
+  Top-1 Accuracy: 57.72%
+  Top-5 Accuracy: 84.84%
+  F1 Score (Macro): 57.67%
+  Parameters: 4,135,648
+  Model Size: 15.94 MB
+  Inference Time: 11.22 ± 2.31 ms
+
+Evaluating Distilled B0...
+Testing: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 625/625 [00:42<00:00, 14.70it/s]
+
+Distilled B0 Results:
+  Top-1 Accuracy: 62.97%
+  Top-5 Accuracy: 82.15%
+  F1 Score (Macro): 63.16%
+  Parameters: 4,135,648
+  Model Size: 15.94 MB
+  Inference Time: 12.00 ± 2.49 ms
+Training comparison plot saved to ./results\training_comparison.png
+Metrics comparison plot saved to ./results\metrics_comparison.png
+Confusion matrix plot saved to ./results\confusion_matrices.png
+Report saved to ./results\comparison_report.txt
+
+================================================================================
+          KNOWLEDGE DISTILLATION COMPARATIVE ANALYSIS REPORT
+================================================================================
+
+EXPERIMENT CONFIGURATION
+------------------------
+Dataset: CIFAR100
+Teacher Model: efficientnet_b2
+Student Model: efficientnet_b0
+Distillation Temperature: 4.0
+Alpha (soft target weight): 0.7
+Training Epochs: 50
+Batch Size: 16
+Learning Rate: 0.001
+
+================================================================================
+MODEL SPECIFICATIONS
+================================================================================
+
+                          Baseline B0          Distilled B0
+                          -----------          ------------
+Parameters:                  4,135,648         4,135,648
+Model Size (MB):                 15.94             15.94
+Inference Time (ms):             11.22             12.00
+
+================================================================================
+PERFORMANCE COMPARISON
+================================================================================
+
+                          Baseline B0          Distilled B0         Improvement
+                          -----------          ------------         -----------
+Top-1 Accuracy (%):              57.72             62.97        +5.25
+Top-5 Accuracy (%):              84.84             82.15        -2.69
+F1 Score Macro (%):              57.67             63.16        +5.49
+F1 Score Weighted (%):           57.67             63.16
+
+================================================================================
+KEY FINDINGS
+================================================================================
+
+1. ACCURACY IMPROVEMENT:
+   - Knowledge distillation improved Top-1 accuracy by 5.25%
+   - Top-5 accuracy decreased by 2.69%
+
+2. MODEL EFFICIENCY:
+   - Both models have identical architecture (EfficientNet-B0)
+   - Same inference time and model size
+   - Distillation provides accuracy gains with no additional inference cost
+
+3. KNOWLEDGE TRANSFER:
+   - Teacher model (efficientnet_b2) knowledge successfully transferred
+   - Student model learns from soft probability distributions
+   - Temperature T=4.0 used for softening predictions
+
+================================================================================
+CONCLUSIONS
+================================================================================
+
+[OK] Knowledge distillation successfully improved model performance
+[OK] Distilled model shows better generalization
+
+The experiment demonstrates that knowledge distillation can transfer knowledge
+from a larger teacher model to a smaller student model, potentially achieving
+better performance than training the student model from scratch.
+
+================================================================================

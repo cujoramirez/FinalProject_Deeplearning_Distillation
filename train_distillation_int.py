@@ -20,6 +20,38 @@ from tqdm import tqdm
 import config
 from data_loader import get_dataloaders
 from models import get_teacher_model, get_student_model, DistillationLoss, count_parameters
+TEACHER_B2_CKPT = "./checkpoints_aktp/teacher_b2_tiny.pth"
+TEACHER_R18_CKPT = "./checkpoints_aktp/teacher_r18_tiny.pth"
+STUDENT_INIT_CKPT = None  # set path if you want to start from a saved student
+
+
+def load_teacher_b2(num_classes: int, device: str):
+    teacher_b2 = get_teacher_model(num_classes)
+    if os.path.isfile(TEACHER_B2_CKPT):
+        print(f"Loading TinyImageNet-finetuned B2 from {TEACHER_B2_CKPT}")
+        teacher_b2.load_state_dict(torch.load(TEACHER_B2_CKPT, map_location=device))
+    else:
+        print("No B2 checkpoint found; using ImageNet-1k weights.")
+    teacher_b2 = teacher_b2.to(device)
+    for p in teacher_b2.parameters():
+        p.requires_grad = False
+    teacher_b2.eval()
+    return teacher_b2
+
+
+def load_teacher_r18(num_classes: int, device: str):
+    teacher_r18 = tv_models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+    teacher_r18.fc = nn.Linear(teacher_r18.fc.in_features, num_classes)
+    if os.path.isfile(TEACHER_R18_CKPT):
+        print(f"Loading TinyImageNet-finetuned R18 from {TEACHER_R18_CKPT}")
+        teacher_r18.load_state_dict(torch.load(TEACHER_R18_CKPT, map_location=device))
+    else:
+        print("No R18 checkpoint found; using ImageNet-1k weights.")
+    teacher_r18 = teacher_r18.to(device)
+    for p in teacher_r18.parameters():
+        p.requires_grad = False
+    teacher_r18.eval()
+    return teacher_r18
 from utils import (
     set_seed, 
     AverageMeter, 
@@ -196,19 +228,15 @@ def train_distillation():
     print("\n" + "=" * 60)
     print("Creating models...")
     print("=" * 60)
-    teacher_b2 = get_teacher_model(num_classes).to(device)
-    teacher_r18 = tv_models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-    teacher_r18.fc = nn.Linear(teacher_r18.fc.in_features, num_classes)
-    teacher_r18 = teacher_r18.to(device)
+    teacher_b2 = load_teacher_b2(num_classes, device)
+    teacher_r18 = load_teacher_r18(num_classes, device)
     student = get_student_model(num_classes).to(device)
-    
-    # Freeze teacher models
-    for param in teacher_b2.parameters():
-        param.requires_grad = False
-    teacher_b2.eval()
-    for param in teacher_r18.parameters():
-        param.requires_grad = False
-    teacher_r18.eval()
+
+    # Optional: initialize student from a checkpoint
+    if STUDENT_INIT_CKPT and os.path.isfile(STUDENT_INIT_CKPT):
+        print(f"Loading student init from {STUDENT_INIT_CKPT}")
+        state = torch.load(STUDENT_INIT_CKPT, map_location=device)
+        student.load_state_dict(state)
     
     print(f"\nTeacher B2 parameters: {count_parameters(teacher_b2):,} (frozen)")
     print(f"Teacher R18 parameters: {count_parameters(teacher_r18):,} (frozen)")

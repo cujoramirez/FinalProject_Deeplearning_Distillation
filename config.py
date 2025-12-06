@@ -15,9 +15,9 @@ RESULTS_DIR = "./results"
 # =============================================================================
 # DATASET CONFIG
 # =============================================================================
-DATASET_NAME = "CIFAR100"  # Options: "CIFAR100", "Flowers102", "Food101"
-NUM_CLASSES = 100
-IMAGE_SIZE = 224  # EfficientNet expects 224x224
+DATASET_NAME = "TinyImageNet"  # Options: "CIFAR100", "Flowers102", "Food101", "TinyImageNet"
+NUM_CLASSES = 200
+IMAGE_SIZE = 64  # Use native TinyImageNet resolution
 
 # =============================================================================
 # MODEL CONFIG
@@ -33,7 +33,7 @@ USE_PRETRAINED_STUDENT = False  # Train student from scratch (or set True for fi
 # TRAINING CONFIG
 # =============================================================================
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-BATCH_SIZE = 16  # Reduced for 6GB VRAM
+BATCH_SIZE = 32  # Adjusted for RTX 5070 headroom; lower if OOM
 NUM_EPOCHS = 50
 LEARNING_RATE = 1e-3
 WEIGHT_DECAY = 1e-4

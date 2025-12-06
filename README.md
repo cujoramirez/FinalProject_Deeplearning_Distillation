@@ -70,21 +70,21 @@ Edit `config.py` to customize:
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `DATASET_NAME` | "CIFAR100" | Dataset to use |
+| `DATASET_NAME` | "TinyImageNet" | Dataset to use (place under `data/tiny-imagenet-200`) |
 | `TEACHER_MODEL` | "efficientnet_b2" | Teacher model architecture |
 | `STUDENT_MODEL` | "efficientnet_b0" | Student model architecture |
 | `TEMPERATURE` | 4.0 | Distillation temperature |
 | `ALPHA` | 0.7 | Weight for soft targets |
-| `BATCH_SIZE` | 16 | Batch size (optimized for 6GB VRAM) |
+| `BATCH_SIZE` | 32 | Batch size (RTX 5070 headroom; lower if OOM) |
 | `NUM_EPOCHS` | 50 | Training epochs |
 
 ## Model Sizes
 
-| Model | Parameters | Size (MB) | GPU Memory (batch=16) |
-|-------|------------|-----------|----------------------|
-| EfficientNet-B0 (Student) | 5.3M | ~20 MB | ~1.5 GB |
-| EfficientNet-B2 (Teacher) | 9.1M | ~35 MB | ~2.5 GB |
-| **Combined (Training)** | - | - | **~4-5 GB** ✅ |
+| Model | Parameters | Size (MB) | GPU Memory (batch=32 @ 64×64) |
+|-------|------------|-----------|-------------------------------|
+| EfficientNet-B0 (Student) | 5.3M | ~20 MB | ~2-3 GB |
+| EfficientNet-B2 (Teacher) | 9.1M | ~35 MB | ~4-5 GB |
+| **Combined (Training)** | - | - | **~6-8 GB** (fits RTX 5070) |
 
 ## Knowledge Distillation
 
@@ -102,10 +102,10 @@ Where:
 
 ## Expected Results
 
-After training, you should see:
-- Distilled model outperforms baseline by ~1-3% on CIFAR-100
-- Both models have identical inference time (same architecture)
-- Distilled model learns "dark knowledge" from teacher's soft predictions
+After training on TinyImageNet (64×64):
+- Distilled model should outperform baseline by a few percentage points (exact delta varies)
+- Both models share the same inference cost (identical architecture)
+- Distilled model benefits from teacher soft targets across 200 classes
 
 ## Troubleshooting
 

@@ -82,7 +82,7 @@ class Config:
     num_classes: int = 200
     image_size: int = 64
     batch_size: int = 32
-    num_workers: int = 4
+    num_workers: int = 2  # safer default for laptops/Colab; bump if CPU cores are plenty
 
     # Teacher fine-tuning
     teacher_epochs: int = 25
@@ -112,6 +112,22 @@ class Config:
 
 def serialize_cfg(cfg):
     return {k: (str(v) if isinstance(v, torch.device) else v) for k, v in cfg.__dict__.items()}
+
+
+def adapt_for_device(cfg: Config):
+    """Tweak batch size/workers for the detected device (optimized for ~12GB GPUs)."""
+    if torch.cuda.is_available():
+        props = torch.cuda.get_device_properties(0)
+        vram_gb = props.total_memory / (1024 ** 3)
+        # Keep batch modest for 12GB cards; raise manually if you have headroom.
+        if vram_gb <= 12:
+            cfg.batch_size = min(cfg.batch_size, 32)
+        # Windows/Colab often prefer fewer workers to avoid overhead.
+        cfg.num_workers = min(cfg.num_workers, 4 if os.name != "nt" else 2)
+    else:
+        # CPU fallback: smaller batch, low worker count.
+        cfg.batch_size = min(cfg.batch_size, 16)
+        cfg.num_workers = min(cfg.num_workers, 2)
 
 def ensure_tiny_imagenet(cfg: Config):
     data_root = os.path.join(cfg.data_path, "tiny-imagenet-200")
@@ -490,6 +506,7 @@ def distill_with_aktp(train_loader, val_loader, teachers, student, cfg: Config):
 
 def main():
     cfg = Config()
+    adapt_for_device(cfg)
     os.makedirs(cfg.checkpoints_dir, exist_ok=True)
     os.makedirs(cfg.logs_dir, exist_ok=True)
     os.makedirs(cfg.data_path, exist_ok=True)

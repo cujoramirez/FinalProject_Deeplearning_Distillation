@@ -1,6 +1,6 @@
 """
 Knowledge Distillation Training Script
-Trains a student model (EfficientNet-B0) using a teacher model (EfficientNet-B2)
+Ensemble distillation: Teacher = EfficientNet-B2 + ResNet18 (avg logits) -> Student = EfficientNet-B0
 Configured for TinyImageNet (200 classes, 64x64)
 """
 
@@ -13,6 +13,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import CosineAnnealingLR, StepLR, ReduceLROnPlateau
+from torchvision import models as tv_models
+from torchvision.models import ResNet18_Weights
 from tqdm import tqdm
 
 import config
@@ -67,9 +69,11 @@ def train_one_epoch(
         images = images.to(device)
         labels = labels.to(device)
         
-        # Forward pass through teacher (no gradients needed)
+        # Forward pass through teachers (no gradients needed)
         with torch.no_grad():
-            teacher_logits = teacher(images)
+            logits_b2 = teacher_b2(images)
+            logits_r18 = teacher_r18(images)
+            teacher_logits = (logits_b2 + logits_r18) / 2.0
         
         # Forward pass through student
         student_logits = student(images)
@@ -190,15 +194,22 @@ def train_distillation():
     print("\n" + "=" * 60)
     print("Creating models...")
     print("=" * 60)
-    teacher = get_teacher_model(num_classes).to(device)
+    teacher_b2 = get_teacher_model(num_classes).to(device)
+    teacher_r18 = tv_models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+    teacher_r18.fc = nn.Linear(teacher_r18.fc.in_features, num_classes)
+    teacher_r18 = teacher_r18.to(device)
     student = get_student_model(num_classes).to(device)
     
-    # Freeze teacher model
-    for param in teacher.parameters():
+    # Freeze teacher models
+    for param in teacher_b2.parameters():
         param.requires_grad = False
-    teacher.eval()
+    teacher_b2.eval()
+    for param in teacher_r18.parameters():
+        param.requires_grad = False
+    teacher_r18.eval()
     
-    print(f"\nTeacher parameters: {count_parameters(teacher):,} (frozen)")
+    print(f"\nTeacher B2 parameters: {count_parameters(teacher_b2):,} (frozen)")
+    print(f"Teacher R18 parameters: {count_parameters(teacher_r18):,} (frozen)")
     print(f"Student parameters: {count_parameters(student):,} (trainable)")
     
     # Loss and optimizer

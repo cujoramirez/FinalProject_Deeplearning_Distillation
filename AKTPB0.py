@@ -16,6 +16,8 @@ Config if needed.
 
 import json
 import os
+import urllib.request
+import zipfile
 from dataclasses import dataclass
 
 import numpy as np
@@ -31,7 +33,7 @@ from torchvision.models import (
     EfficientNet_B0_Weights,
     EfficientNet_B2_Weights,
     ResNet18_Weights,
-)
+ )
 from tqdm import tqdm
 class TinyImageNetValDataset(Dataset):
     """TinyImageNet validation dataset using val_annotations.txt labels."""
@@ -107,6 +109,26 @@ class Config:
 
     # Device
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def serialize_cfg(cfg):
+    return {k: (str(v) if isinstance(v, torch.device) else v) for k, v in cfg.__dict__.items()}
+
+def ensure_tiny_imagenet(cfg: Config):
+    data_root = os.path.join(cfg.data_path, "tiny-imagenet-200")
+    if os.path.isdir(data_root):
+        print(f"TinyImageNet found at {data_root}")
+        return data_root
+    os.makedirs(cfg.data_path, exist_ok=True)
+    url = "http://cs231n.stanford.edu/tiny-imagenet-200.zip"
+    zip_path = os.path.join(cfg.data_path, "tiny-imagenet-200.zip")
+    if not os.path.isfile(zip_path):
+        print("Downloading TinyImageNet (~240MB)...")
+        urllib.request.urlretrieve(url, zip_path)
+    print("Extracting TinyImageNet...")
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        zf.extractall(cfg.data_path)
+    print("Done extracting.")
+    return data_root
 
 # --- 1. Interchangeable Dataset Wrapper ---
 def get_tinyimagenet_loaders(config: Config):
@@ -470,10 +492,13 @@ def main():
     cfg = Config()
     os.makedirs(cfg.checkpoints_dir, exist_ok=True)
     os.makedirs(cfg.logs_dir, exist_ok=True)
+    os.makedirs(cfg.data_path, exist_ok=True)
 
     # Save config snapshot
     with open(os.path.join(cfg.logs_dir, "aktp_tiny_config.json"), "w") as f:
-        json.dump(cfg.__dict__, f, indent=2)
+        json.dump(serialize_cfg(cfg), f, indent=2)
+
+    ensure_tiny_imagenet(cfg)
 
     print(f"Using device: {cfg.device}")
     train_loader, val_loader = get_tinyimagenet_loaders(cfg)

@@ -25,6 +25,7 @@ class Config:
         self.epochs = 50
         self.lr = 1e-3
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.early_stopping_patience = 10
         
         # Paths to PRETRAINED Teachers (You must provide these)
         # For this script to run immediately, I will use torchvision pretrained 
@@ -151,6 +152,24 @@ class AKTP(nn.Module):
         features = torch.cat([entropy, disagreement], dim=1)
         return self.sigmoid(self.fc(features)) # Returns lambda per sample [Batch, 1]
 
+
+class EarlyStopping:
+    """Stop training if validation metric does not improve after patience epochs."""
+
+    def __init__(self, patience: int = 10, min_delta: float = 0.0):
+        self.patience = patience
+        self.min_delta = min_delta
+        self.best = None
+        self.count = 0
+
+    def step(self, metric: float) -> bool:
+        if self.best is None or metric > self.best + self.min_delta:
+            self.best = metric
+            self.count = 0
+            return False
+        self.count += 1
+        return self.count >= self.patience
+
 # --- 4. Main Training System ---
 def train_aktp(config):
     train_loader, test_loader = get_dataloaders(config)
@@ -198,6 +217,9 @@ def train_aktp(config):
     # --- Training Loop ---
     print("Starting Training with AKTP...")
     
+    early_stop = EarlyStopping(patience=config.early_stopping_patience)
+    best_acc = 0.0
+
     for epoch in range(config.epochs):
         student.train()
         combiner.train()
@@ -279,7 +301,19 @@ def train_aktp(config):
         acc = 100 * correct / total
         print(f"Epoch {epoch+1} Test Acc: {acc:.2f}% | Avg AKTP Lambda: {avg_lambda/len(train_loader):.4f}")
 
-    # Save
+        # Early stopping on test accuracy (proxy for val)
+        if acc > best_acc:
+            best_acc = acc
+            torch.save(student.state_dict(), f"b0_aktp_{config.dataset_name}_best.pth")
+            print(f"Saved best model at epoch {epoch+1} (acc={acc:.2f}%)")
+            stop_now = False
+        else:
+            stop_now = early_stop.step(acc)
+        if stop_now:
+            print(f"Early stopping triggered at epoch {epoch+1}")
+            break
+
+    # Save latest
     torch.save(student.state_dict(), f"b0_aktp_{config.dataset_name}.pth")
     print("Training Complete.")
 

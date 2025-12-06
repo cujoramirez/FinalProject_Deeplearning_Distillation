@@ -32,7 +32,8 @@ from utils import (
 
 def train_one_epoch(
     student: nn.Module,
-    teacher: nn.Module,
+    teacher_b2: nn.Module,
+    teacher_r18: nn.Module,
     train_loader,
     criterion: DistillationLoss,
     optimizer: optim.Optimizer,
@@ -55,7 +56,8 @@ def train_one_epoch(
         Dictionary with training metrics
     """
     student.train()
-    teacher.eval()  # Teacher is always in eval mode
+    teacher_b2.eval()
+    teacher_r18.eval()
     
     losses = AverageMeter()
     soft_losses = AverageMeter()
@@ -255,7 +257,7 @@ def train_distillation():
     for epoch in range(config.NUM_EPOCHS):
         # Train
         train_metrics = train_one_epoch(
-            student, teacher, train_loader, criterion, optimizer, device, epoch
+            student, teacher_b2, teacher_r18, train_loader, criterion, optimizer, device, epoch
         )
         
         # Validate

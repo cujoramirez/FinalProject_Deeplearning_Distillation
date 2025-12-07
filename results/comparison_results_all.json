@@ -1,0 +1,57 @@
+{
+  "Baseline B0 TinyImageNet": {
+    "model_name": "Baseline B0 TinyImageNet",
+    "top1_accuracy": 55.98,
+    "top5_accuracy": 79.54,
+    "f1_macro": 55.878628249454856,
+    "f1_weighted": 55.878628249454856,
+    "num_parameters": 4263748,
+    "size_mb": 16.425559997558594,
+    "inference_time_ms": 10.674786000745371,
+    "inference_std_ms": 1.8685436668598148
+  },
+  "Vanilla Distilled B0": {
+    "model_name": "Vanilla Distilled B0",
+    "top1_accuracy": 61.58,
+    "top5_accuracy": 83.87,
+    "f1_macro": 61.205555995427574,
+    "f1_weighted": 61.20555599542756,
+    "num_parameters": 4263748,
+    "size_mb": 16.425559997558594,
+    "inference_time_ms": 11.088784999301424,
+    "inference_std_ms": 2.3747719369751614
+  },
+  "AKTP Distilled B0": {
+    "model_name": "AKTP Distilled B0",
+    "top1_accuracy": 63.2,
+    "top5_accuracy": 82.31,
+    "f1_macro": 63.136155676940874,
+    "f1_weighted": 63.136155676940874,
+    "num_parameters": 4263748,
+    "size_mb": 16.425559997558594,
+    "inference_time_ms": 10.343212999869138,
+    "inference_std_ms": 1.857365259632592
+  },
+  "Teacher EfficientNet-B2": {
+    "model_name": "Teacher EfficientNet-B2",
+    "top1_accuracy": 61.08,
+    "top5_accuracy": 82.7,
+    "f1_macro": 60.91795642301548,
+    "f1_weighted": 60.91795642301548,
+    "num_parameters": 7982794,
+    "size_mb": 30.710220336914062,
+    "inference_time_ms": 15.320263999601593,
+    "inference_std_ms": 2.603191475158862
+  },
+  "Teacher ResNet18": {
+    "model_name": "Teacher ResNet18",
+    "top1_accuracy": 52.21,
+    "top5_accuracy": 74.99,
+    "f1_macro": 52.14118135924634,
+    "f1_weighted": 52.141181359246325,
+    "num_parameters": 11279112,
+    "size_mb": 43.06317138671875,
+    "inference_time_ms": 3.2092420001572464,
+    "inference_std_ms": 0.292418476018189
+  }
+}

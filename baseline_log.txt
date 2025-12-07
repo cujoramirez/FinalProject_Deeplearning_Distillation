@@ -1,0 +1,134 @@
+(base) C:\Users\Gading>cd downloads
+
+(base) C:\Users\Gading\Downloads>cd final_dl
+
+(base) C:\Users\Gading\Downloads\final_DL>python train_baseline.py
+Using device: cuda
+
+============================================================
+Loading dataset...
+============================================================
+TinyImageNet loaded:
+  Training samples: 100000
+  Validation samples: 10000
+  Test samples: 10000
+  Number of classes: 200
+
+============================================================
+Creating baseline model for TinyImageNet...
+============================================================
+Loading student model: efficientnet_b0
+  Parameters: 4,263,748
+Model parameters: 4,263,748
+
+============================================================
+Starting Baseline Training (No Distillation)
+============================================================
+Epoch 1 [Train]: 100%|██████████████████████| 391/391 [04:02<00:00,  1.61it/s, loss=2.6226, acc@1=40.21%, acc@5=65.97%]
+Epoch 1 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:30<00:00,  1.31it/s, loss=2.0057, acc@1=51.03%, acc@5=77.38%]
+
+Epoch 1/50 Summary:
+  Train Loss: 2.6226, Acc: 40.21%
+  Val Loss: 2.0057, Acc: 51.03%
+  LR: 0.001000
+  New best validation accuracy: 51.03%
+Epoch 2 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [00:59<00:00,  6.56it/s, loss=1.6794, acc@1=57.46%, acc@5=82.58%]
+Epoch 2 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.83it/s, loss=1.8501, acc@1=54.37%, acc@5=80.04%]
+
+Epoch 2/50 Summary:
+  Train Loss: 1.6794, Acc: 57.46%
+  Val Loss: 1.8501, Acc: 54.37%
+  LR: 0.000999
+  New best validation accuracy: 54.37%
+Epoch 3 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.51it/s, loss=1.3725, acc@1=63.72%, acc@5=87.01%]
+Epoch 3 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.82it/s, loss=1.8811, acc@1=54.59%, acc@5=79.96%]
+
+Epoch 3/50 Summary:
+  Train Loss: 1.3725, Acc: 63.72%
+  Val Loss: 1.8811, Acc: 54.59%
+  LR: 0.000996
+  New best validation accuracy: 54.59%
+Epoch 4 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.48it/s, loss=1.1573, acc@1=69.00%, acc@5=90.03%]
+Epoch 4 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.85it/s, loss=1.9104, acc@1=55.45%, acc@5=79.79%]
+
+Epoch 4/50 Summary:
+  Train Loss: 1.1573, Acc: 69.00%
+  Val Loss: 1.9104, Acc: 55.45%
+  LR: 0.000991
+  New best validation accuracy: 55.45%
+Epoch 5 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.47it/s, loss=0.9772, acc@1=73.00%, acc@5=92.48%]
+Epoch 5 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.85it/s, loss=1.9452, acc@1=55.67%, acc@5=79.90%]
+
+Epoch 5/50 Summary:
+  Train Loss: 0.9772, Acc: 73.00%
+  Val Loss: 1.9452, Acc: 55.67%
+  LR: 0.000984
+  New best validation accuracy: 55.67%
+Epoch 6 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.49it/s, loss=0.8239, acc@1=76.57%, acc@5=94.47%]
+Epoch 6 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.83it/s, loss=2.0359, acc@1=55.44%, acc@5=79.78%]
+
+Epoch 6/50 Summary:
+  Train Loss: 0.8239, Acc: 76.57%
+  Val Loss: 2.0359, Acc: 55.44%
+  LR: 0.000976
+Epoch 7 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.49it/s, loss=0.6941, acc@1=79.83%, acc@5=95.91%]
+Epoch 7 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.85it/s, loss=2.0601, acc@1=55.98%, acc@5=79.54%]
+
+Epoch 7/50 Summary:
+  Train Loss: 0.6941, Acc: 79.83%
+  Val Loss: 2.0601, Acc: 55.98%
+  LR: 0.000965
+  New best validation accuracy: 55.98%
+Epoch 8 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.48it/s, loss=0.5771, acc@1=82.77%, acc@5=97.25%]
+Epoch 8 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.84it/s, loss=2.1638, acc@1=55.72%, acc@5=79.63%]
+
+Epoch 8/50 Summary:
+  Train Loss: 0.5771, Acc: 82.77%
+  Val Loss: 2.1638, Acc: 55.72%
+  LR: 0.000952
+Epoch 9 [Train]: 100%|██████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.47it/s, loss=0.4911, acc@1=85.22%, acc@5=97.95%]
+Epoch 9 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.83it/s, loss=2.2309, acc@1=55.84%, acc@5=79.26%]
+
+Epoch 9/50 Summary:
+  Train Loss: 0.4911, Acc: 85.22%
+  Val Loss: 2.2309, Acc: 55.84%
+  LR: 0.000938
+Epoch 10 [Train]: 100%|█████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.47it/s, loss=0.4275, acc@1=86.99%, acc@5=98.48%]
+Epoch 10 [Val]: 100%|█████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.84it/s, loss=2.2923, acc@1=55.58%, acc@5=79.60%]
+
+Epoch 10/50 Summary:
+  Train Loss: 0.4275, Acc: 86.99%
+  Val Loss: 2.2923, Acc: 55.58%
+  LR: 0.000922
+Epoch 11 [Train]: 100%|█████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.50it/s, loss=0.3657, acc@1=88.87%, acc@5=98.90%]
+Epoch 11 [Val]: 100%|█████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.84it/s, loss=2.3785, acc@1=55.44%, acc@5=78.76%]
+
+Epoch 11/50 Summary:
+  Train Loss: 0.3657, Acc: 88.87%
+  Val Loss: 2.3785, Acc: 55.44%
+  LR: 0.000905
+Epoch 12 [Train]: 100%|█████████████████████████████████████████████████████████| 391/391 [01:00<00:00,  6.48it/s, loss=0.3183, acc@1=90.21%, acc@5=99.15%]
+Epoch 12 [Val]: 100%|█████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.84it/s, loss=2.4403, acc@1=55.45%, acc@5=78.39%]
+
+Epoch 12/50 Summary:
+  Train Loss: 0.3183, Acc: 90.21%
+  Val Loss: 2.4403, Acc: 55.45%
+  LR: 0.000885
+
+Early stopping triggered at epoch 12
+
+Training completed in 19.62 minutes
+Best validation accuracy: 55.98%
+Training history saved to ./results\baseline_history_tinyimagenet.json
+
+============================================================
+Final Test Evaluation
+============================================================
+C:\Users\Gading\Downloads\final_DL\train_baseline.py:277: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  best_checkpoint = torch.load(
+Epoch 0 [Val]: 100%|██████████████████████████████████████████████████████████████| 40/40 [00:21<00:00,  1.86it/s, loss=2.0601, acc@1=55.98%, acc@5=79.54%]
+
+Test Results:
+  Loss: 2.0601
+  Top-1 Accuracy: 55.98%
+  Top-5 Accuracy: 79.54%

@@ -69,6 +69,8 @@ class Config:
     num_classes: int = 200
     image_size: int = 64
     batch_size: int = 256
+    # If >0, forces this batch size regardless of device heuristics
+    force_batch_size: int = 256
     num_workers: int = 2
 
     # Teacher fine-tuning
@@ -117,6 +119,13 @@ def adapt_for_device(cfg: Config):
     else:
         cfg.batch_size = min(cfg.batch_size, 16)
         cfg.num_workers = min(cfg.num_workers, 2)
+
+    # Allow explicit override of batch size (useful when user wants to force 256)
+    try:
+        if getattr(cfg, "force_batch_size", 0) and int(cfg.force_batch_size) > 0:
+            cfg.batch_size = int(cfg.force_batch_size)
+    except Exception:
+        pass
 
 
 def ensure_tiny_imagenet(cfg: Config):

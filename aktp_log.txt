@@ -1,149 +1,10 @@
-(base) C:\Users\Gading\Downloads\final_DL>python aktpb0.py
+(base) C:\Users\Gading\Downloads\final_DL> python AKTPB0.py
 TinyImageNet found at ./data\tiny-imagenet-200
 Using device: cuda
-Configuration: batch_size=32, warmup_epochs=5, warmup_lambda=0.7
-Training teacher EfficientNet-B2 on TinyImageNet...
-Teacher-B2 Train E1/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [07:37<00:00,  6.83it/s, loss=2.32]
-Teacher-B2 Epoch 1: train_acc=32.82% val_acc=47.64%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=47.64%)
-Teacher-B2 Train E2/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:53<00:00, 18.01it/s, loss=1.67]
-Teacher-B2 Epoch 2: train_acc=47.33% val_acc=50.94%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=50.94%)
-Teacher-B2 Train E3/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:57<00:00, 17.58it/s, loss=1.86]
-Teacher-B2 Epoch 3: train_acc=52.45% val_acc=53.93%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=53.93%)
-Teacher-B2 Train E4/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:58<00:00, 17.52it/s, loss=1.76]
-Teacher-B2 Epoch 4: train_acc=56.29% val_acc=55.13%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=55.13%)
-Teacher-B2 Train E5/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:58<00:00, 17.49it/s, loss=1.18]
-Teacher-B2 Epoch 5: train_acc=59.41% val_acc=55.79%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=55.79%)
-Teacher-B2 Train E6/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:59<00:00, 17.44it/s, loss=1.15]
-Teacher-B2 Epoch 6: train_acc=62.25% val_acc=57.69%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=57.69%)
-Teacher-B2 Train E7/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:59<00:00, 17.42it/s, loss=1.28]
-Teacher-B2 Epoch 7: train_acc=64.89% val_acc=57.52%
-Teacher-B2 Train E8/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.35it/s, loss=1.53]
-Teacher-B2 Epoch 8: train_acc=67.37% val_acc=58.25%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=58.25%)
-Teacher-B2 Train E9/25: 100%|███████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:59<00:00, 17.43it/s, loss=1.24]
-Teacher-B2 Epoch 9: train_acc=70.07% val_acc=58.32%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=58.32%)
-Teacher-B2 Train E10/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.32it/s, loss=1.83]
-Teacher-B2 Epoch 10: train_acc=72.41% val_acc=58.73%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=58.73%)
-Teacher-B2 Train E11/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.32it/s, loss=1.47]
-Teacher-B2 Epoch 11: train_acc=74.66% val_acc=58.82%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=58.82%)
-Teacher-B2 Train E12/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.34it/s, loss=0.839]
-Teacher-B2 Epoch 12: train_acc=77.34% val_acc=59.26%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=59.26%)
-Teacher-B2 Train E13/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [02:59<00:00, 17.37it/s, loss=0.461]
-Teacher-B2 Epoch 13: train_acc=79.67% val_acc=58.83%
-Teacher-B2 Train E14/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.29it/s, loss=0.501]
-Teacher-B2 Epoch 14: train_acc=81.91% val_acc=59.20%
-Teacher-B2 Train E15/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.32it/s, loss=0.52]
-Teacher-B2 Epoch 15: train_acc=84.02% val_acc=59.82%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=59.82%)
-Teacher-B2 Train E16/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.30it/s, loss=0.954]
-Teacher-B2 Epoch 16: train_acc=85.97% val_acc=60.04%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=60.04%)
-Teacher-B2 Train E17/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.30it/s, loss=0.505]
-Teacher-B2 Epoch 17: train_acc=87.70% val_acc=59.89%
-Teacher-B2 Train E18/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.28it/s, loss=0.522]
-Teacher-B2 Epoch 18: train_acc=89.15% val_acc=60.30%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=60.30%)
-Teacher-B2 Train E19/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:02<00:00, 17.16it/s, loss=0.37]
-Teacher-B2 Epoch 19: train_acc=90.58% val_acc=59.95%
-Teacher-B2 Train E20/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:01<00:00, 17.20it/s, loss=0.0942]
-Teacher-B2 Epoch 20: train_acc=91.65% val_acc=60.83%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=60.83%)
-Teacher-B2 Train E21/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.28it/s, loss=0.276]
-Teacher-B2 Epoch 21: train_acc=92.44% val_acc=60.90%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=60.90%)
-Teacher-B2 Train E22/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:00<00:00, 17.28it/s, loss=0.11]
-Teacher-B2 Epoch 22: train_acc=93.15% val_acc=61.04%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=61.04%)
-Teacher-B2 Train E23/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:01<00:00, 17.24it/s, loss=0.454]
-Teacher-B2 Epoch 23: train_acc=93.50% val_acc=61.07%
-  Saved new best Teacher-B2 to ./checkpoints_aktp/teacher_b2_tiny.pth (val_acc=61.07%)
-Teacher-B2 Train E24/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:01<00:00, 17.19it/s, loss=0.181]
-Teacher-B2 Epoch 24: train_acc=93.86% val_acc=60.93%
-Teacher-B2 Train E25/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [03:01<00:00, 17.20it/s, loss=0.0306]
-Teacher-B2 Epoch 25: train_acc=94.03% val_acc=60.99%
-Training teacher ResNet18 on TinyImageNet...
-Teacher-R18 Train E1/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.78it/s, loss=2.52]
-Teacher-R18 Epoch 1: train_acc=26.68% val_acc=32.89%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=32.89%)
-Teacher-R18 Train E2/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:00<00:00, 51.24it/s, loss=2.86]
-Teacher-R18 Epoch 2: train_acc=37.11% val_acc=39.09%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=39.09%)
-Teacher-R18 Train E3/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 51.07it/s, loss=1.83]
-Teacher-R18 Epoch 3: train_acc=42.57% val_acc=41.39%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=41.39%)
-Teacher-R18 Train E4/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.88it/s, loss=2.77]
-Teacher-R18 Epoch 4: train_acc=47.15% val_acc=44.40%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=44.40%)
-Teacher-R18 Train E5/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.99it/s, loss=1.71]
-Teacher-R18 Epoch 5: train_acc=51.14% val_acc=44.91%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=44.91%)
-Teacher-R18 Train E6/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:07<00:00, 46.63it/s, loss=2.34]
-Teacher-R18 Epoch 6: train_acc=54.56% val_acc=46.03%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=46.03%)
-Teacher-R18 Train E7/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.76it/s, loss=1.78]
-Teacher-R18 Epoch 7: train_acc=58.17% val_acc=46.95%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=46.95%)
-Teacher-R18 Train E8/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:06<00:00, 47.30it/s, loss=1.51]
-Teacher-R18 Epoch 8: train_acc=61.66% val_acc=48.72%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=48.72%)
-Teacher-R18 Train E9/25: 100%|██████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.42it/s, loss=1.27]
-Teacher-R18 Epoch 9: train_acc=65.16% val_acc=48.62%
-Teacher-R18 Train E10/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.55it/s, loss=1.05]
-Teacher-R18 Epoch 10: train_acc=68.69% val_acc=49.25%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=49.25%)
-Teacher-R18 Train E11/25: 100%|████████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:02<00:00, 50.19it/s, loss=1]
-Teacher-R18 Epoch 11: train_acc=72.33% val_acc=49.54%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=49.54%)
-Teacher-R18 Train E12/25: 100%|█████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.74it/s, loss=1.04]
-Teacher-R18 Epoch 12: train_acc=75.61% val_acc=49.09%
-Teacher-R18 Train E13/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.74it/s, loss=0.863]
-Teacher-R18 Epoch 13: train_acc=78.70% val_acc=50.05%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=50.05%)
-Teacher-R18 Train E14/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.71it/s, loss=0.845]
-Teacher-R18 Epoch 14: train_acc=81.72% val_acc=50.11%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=50.11%)
-Teacher-R18 Train E15/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:04<00:00, 48.34it/s, loss=0.454]
-Teacher-R18 Epoch 15: train_acc=84.38% val_acc=50.32%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=50.32%)
-Teacher-R18 Train E16/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:03<00:00, 49.57it/s, loss=0.384]
-Teacher-R18 Epoch 16: train_acc=86.90% val_acc=50.73%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=50.73%)
-Teacher-R18 Train E17/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:00<00:00, 51.25it/s, loss=0.239]
-Teacher-R18 Epoch 17: train_acc=88.73% val_acc=50.50%
-Teacher-R18 Train E18/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:03<00:00, 49.31it/s, loss=0.315]
-Teacher-R18 Epoch 18: train_acc=90.48% val_acc=50.90%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=50.90%)
-Teacher-R18 Train E19/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.64it/s, loss=0.381]
-Teacher-R18 Epoch 19: train_acc=92.16% val_acc=51.39%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=51.39%)
-Teacher-R18 Train E20/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.79it/s, loss=0.334]
-Teacher-R18 Epoch 20: train_acc=93.29% val_acc=51.85%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=51.85%)
-Teacher-R18 Train E21/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.53it/s, loss=0.114]
-Teacher-R18 Epoch 21: train_acc=94.11% val_acc=51.96%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=51.96%)
-Teacher-R18 Train E22/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.48it/s, loss=0.185]
-Teacher-R18 Epoch 22: train_acc=94.87% val_acc=51.80%
-Teacher-R18 Train E23/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:02<00:00, 50.16it/s, loss=0.239]
-Teacher-R18 Epoch 23: train_acc=95.48% val_acc=52.20%
-  Saved new best Teacher-R18 to ./checkpoints_aktp/teacher_r18_tiny.pth (val_acc=52.20%)
-Teacher-R18 Train E24/25: 100%|████████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.50it/s, loss=0.219]
-Teacher-R18 Epoch 24: train_acc=95.72% val_acc=51.75%
-Teacher-R18 Train E25/25: 100%|███████████████████████████████████████████████████████████████████████████| 3125/3125 [01:01<00:00, 50.48it/s, loss=0.0703]
-Teacher-R18 Epoch 25: train_acc=95.85% val_acc=51.62%
-C:\Users\Gading\Downloads\final_DL\aktpb0.py:469: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+Configuration: batch_size=256, warmup_epochs=5, warmup_lambda=0.5
+C:\Users\Gading\Downloads\final_DL\AKTPB0.py:477: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   b2.load_state_dict(torch.load(b2_path, map_location=cfg.device))
-C:\Users\Gading\Downloads\final_DL\aktpb0.py:476: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+C:\Users\Gading\Downloads\final_DL\AKTPB0.py:484: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   r18.load_state_dict(torch.load(r18_path, map_location=cfg.device))
 Teachers ready (TinyImageNet-finetuned).
 Starting student from ImageNet-1K pretrained weights.
@@ -154,143 +15,144 @@ Starting AKTP Distillation with fixes:
   ✓ Normalized AKTP features
   ✓ Warmup phase with fixed lambda
   ✓ Gradient clipping
-  ✓ Clamped lambda range [0.1, 0.9]
+  ✓ Clamped lambda range [0.05, 0.6]
 ============================================================
 
-AKTP Distill E1/50: 100%|█████████████████████████████████████████████████████████| 3125/3125 [03:37<00:00, 14.37it/s, loss=2.51, λ=0.7, ce=2.32, kd=0.199]
-Epoch 1 [WARMUP]: val_acc=40.58% λ=0.7000 CE=2.2517 KD=0.2003
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=40.58%)
-AKTP Distill E2/50: 100%|█████████████████████████████████████████████████████████| 3125/3125 [03:36<00:00, 14.41it/s, loss=1.98, λ=0.7, ce=1.76, kd=0.205]
-Epoch 2 [WARMUP]: val_acc=44.45% λ=0.7000 CE=1.7919 KD=0.2113
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=44.45%)
-AKTP Distill E3/50: 100%|█████████████████████████████████████████████████████████| 3125/3125 [03:37<00:00, 14.39it/s, loss=1.32, λ=0.7, ce=1.08, kd=0.223]
-Epoch 3 [WARMUP]: val_acc=47.98% λ=0.7000 CE=1.6323 KD=0.2114
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=47.98%)
-AKTP Distill E4/50: 100%|█████████████████████████████████████████████████████████| 3125/3125 [03:37<00:00, 14.34it/s, loss=1.77, λ=0.7, ce=1.53, kd=0.202]
-Epoch 4 [WARMUP]: val_acc=49.69% λ=0.7000 CE=1.5299 KD=0.2105
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=49.69%)
-AKTP Distill E5/50: 100%|██████████████████████████████████████████████████████████| 3125/3125 [03:37<00:00, 14.39it/s, loss=1.89, λ=0.7, ce=1.66, kd=0.19]
-Epoch 5 [WARMUP]: val_acc=50.70% λ=0.7000 CE=1.4422 KD=0.2114
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=50.70%)
-AKTP Distill E6/50: 100%|██████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=1.25, λ=0.453, ce=0.928, kd=0.264]
-Epoch 6: val_acc=52.11% λ=0.4888 CE=1.0027 KD=0.3046
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=52.11%)
-AKTP Distill E7/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.823, λ=0.365, ce=0.546, kd=0.211]
-Epoch 7: val_acc=51.86% λ=0.4035 CE=0.7915 KD=0.2345
-AKTP Distill E8/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.88it/s, loss=0.838, λ=0.275, ce=0.623, kd=0.128]
-Epoch 8: val_acc=51.67% λ=0.3294 CE=0.6287 KD=0.1701
-AKTP Distill E9/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.72, λ=0.189, ce=0.566, kd=0.0866]
-Epoch 9: val_acc=52.45% λ=0.2730 CE=0.4973 KD=0.1263
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=52.45%)
-AKTP Distill E10/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.569, λ=0.194, ce=0.368, kd=0.067]
-Epoch 10: val_acc=50.72% λ=0.2341 CE=0.3999 KD=0.0969
-AKTP Distill E11/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.89it/s, loss=0.547, λ=0.18, ce=0.351, kd=0.0871]
-Epoch 11: val_acc=49.12% λ=0.2146 CE=0.3360 KD=0.0878
-AKTP Distill E12/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.558, λ=0.196, ce=0.305, kd=0.0897]
-Epoch 12: val_acc=50.64% λ=0.2104 CE=0.3143 KD=0.0944
-AKTP Distill E13/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.524, λ=0.159, ce=0.325, kd=0.081]
-Epoch 13: val_acc=50.52% λ=0.2066 CE=0.2969 KD=0.1014
-AKTP Distill E14/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.88it/s, loss=0.486, λ=0.192, ce=0.256, kd=0.103]
-Epoch 14: val_acc=51.88% λ=0.2025 CE=0.2862 KD=0.1052
-AKTP Distill E15/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:43<00:00, 13.97it/s, loss=0.431, λ=0.253, ce=0.236, kd=0.124]
-Epoch 15: val_acc=52.26% λ=0.2019 CE=0.2733 KD=0.1103
-AKTP Distill E16/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.422, λ=0.272, ce=0.191, kd=0.132]
-Epoch 16: val_acc=52.34% λ=0.2040 CE=0.2639 KD=0.1133
-AKTP Distill E17/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.479, λ=0.232, ce=0.291, kd=0.105]
-Epoch 17: val_acc=51.81% λ=0.2105 CE=0.2586 KD=0.1151
-AKTP Distill E18/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.497, λ=0.189, ce=0.281, kd=0.0882]
-Epoch 18: val_acc=52.91% λ=0.2200 CE=0.2523 KD=0.1166
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=52.91%)
-AKTP Distill E19/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.89it/s, loss=0.392, λ=0.273, ce=0.212, kd=0.11]
-Epoch 19: val_acc=53.32% λ=0.2314 CE=0.2494 KD=0.1163
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=53.32%)
-AKTP Distill E20/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.89it/s, loss=0.512, λ=0.194, ce=0.355, kd=0.091]
-Epoch 20: val_acc=54.26% λ=0.2447 CE=0.2456 KD=0.1162
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=54.26%)
-AKTP Distill E21/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.88it/s, loss=0.402, λ=0.331, ce=0.192, kd=0.118]
-Epoch 21: val_acc=54.54% λ=0.2603 CE=0.2392 KD=0.1170
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=54.54%)
-AKTP Distill E22/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.399, λ=0.311, ce=0.225, kd=0.118]
-Epoch 22: val_acc=54.88% λ=0.2783 CE=0.2349 KD=0.1172
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=54.88%)
-AKTP Distill E23/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.474, λ=0.328, ce=0.248, kd=0.113]
-Epoch 23: val_acc=54.72% λ=0.2979 CE=0.2329 KD=0.1152
-AKTP Distill E24/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.337, λ=0.396, ce=0.148, kd=0.116]
-Epoch 24: val_acc=55.72% λ=0.3181 CE=0.2290 KD=0.1140
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=55.72%)
-AKTP Distill E25/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.506, λ=0.33, ce=0.317, kd=0.107]
-Epoch 25: val_acc=55.80% λ=0.3371 CE=0.2284 KD=0.1111
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=55.80%)
-AKTP Distill E26/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.351, λ=0.415, ce=0.149, kd=0.114]
-Epoch 26: val_acc=55.86% λ=0.3550 CE=0.2235 KD=0.1109
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=55.86%)
-AKTP Distill E27/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.95it/s, loss=0.392, λ=0.304, ce=0.19, kd=0.124]
-Epoch 27: val_acc=56.38% λ=0.3734 CE=0.2173 KD=0.1103
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=56.38%)
-AKTP Distill E28/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.402, λ=0.384, ce=0.227, kd=0.0828]
-Epoch 28: val_acc=56.54% λ=0.3916 CE=0.2140 KD=0.1089
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=56.54%)
-AKTP Distill E29/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.394, λ=0.392, ce=0.221, kd=0.112]
-Epoch 29: val_acc=56.67% λ=0.4104 CE=0.2102 KD=0.1073
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=56.67%)
-AKTP Distill E30/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.346, λ=0.466, ce=0.157, kd=0.111]
-Epoch 30: val_acc=57.61% λ=0.4262 CE=0.2041 KD=0.1066
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=57.61%)
-AKTP Distill E31/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.88it/s, loss=0.538, λ=0.527, ce=0.361, kd=0.11]
-Epoch 31: val_acc=57.46% λ=0.4419 CE=0.2016 KD=0.1052
-AKTP Distill E32/50: 100%|██████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.29, λ=0.49, ce=0.157, kd=0.104]
-Epoch 32: val_acc=57.77% λ=0.4558 CE=0.1952 KD=0.1049
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=57.77%)
-AKTP Distill E33/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.325, λ=0.473, ce=0.185, kd=0.103]
-Epoch 33: val_acc=58.10% λ=0.4670 CE=0.1901 KD=0.1035
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.10%)
-AKTP Distill E34/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.88it/s, loss=0.372, λ=0.449, ce=0.159, kd=0.109]
-Epoch 34: val_acc=58.24% λ=0.4781 CE=0.1852 KD=0.1035
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.24%)
-AKTP Distill E35/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.348, λ=0.391, ce=0.162, kd=0.0978]
-Epoch 35: val_acc=57.76% λ=0.4875 CE=0.1806 KD=0.1046
-AKTP Distill E36/50: 100%|██████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.87it/s, loss=0.325, λ=0.442, ce=0.192, kd=0.1]
-Epoch 36: val_acc=58.55% λ=0.4956 CE=0.1750 KD=0.1042
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.55%)
-AKTP Distill E37/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.328, λ=0.478, ce=0.16, kd=0.0946]
-Epoch 37: val_acc=58.29% λ=0.5040 CE=0.1715 KD=0.1046
-AKTP Distill E38/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.88it/s, loss=0.335, λ=0.492, ce=0.153, kd=0.114]
-Epoch 38: val_acc=58.47% λ=0.5110 CE=0.1674 KD=0.1054
-AKTP Distill E39/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.237, λ=0.663, ce=0.0948, kd=0.106]
-Epoch 39: val_acc=58.03% λ=0.5170 CE=0.1630 KD=0.1051
-AKTP Distill E40/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.92it/s, loss=0.292, λ=0.511, ce=0.165, kd=0.0881]
-Epoch 40: val_acc=58.67% λ=0.5226 CE=0.1595 KD=0.1054
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.67%)
-AKTP Distill E41/50: 100%|██████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.95it/s, loss=0.216, λ=0.653, ce=0.0827, kd=0.0968]
-Epoch 41: val_acc=58.87% λ=0.5278 CE=0.1583 KD=0.1053
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.87%)
-AKTP Distill E42/50: 100%|███████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.91it/s, loss=0.319, λ=0.481, ce=0.145, kd=0.0995]
-Epoch 42: val_acc=58.87% λ=0.5317 CE=0.1526 KD=0.1064
-AKTP Distill E43/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:44<00:00, 13.90it/s, loss=0.269, λ=0.546, ce=0.14, kd=0.0969]
-Epoch 43: val_acc=58.92% λ=0.5350 CE=0.1520 KD=0.1063
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.92%)
-AKTP Distill E44/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:45<00:00, 13.87it/s, loss=0.332, λ=0.567, ce=0.128, kd=0.142]
-Epoch 44: val_acc=59.12% λ=0.5378 CE=0.1508 KD=0.1064
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.12%)
-AKTP Distill E45/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:43<00:00, 14.00it/s, loss=0.258, λ=0.569, ce=0.114, kd=0.101]
-Epoch 45: val_acc=59.26% λ=0.5402 CE=0.1467 KD=0.1079
-  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.26%)
-AKTP Distill E46/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:43<00:00, 13.99it/s, loss=0.288, λ=0.551, ce=0.104, kd=0.135]
-Epoch 46: val_acc=59.07% λ=0.5430 CE=0.1461 KD=0.1075
-AKTP Distill E47/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:52<00:00, 13.42it/s, loss=0.224, λ=0.621, ce=0.108, kd=0.103]
-Epoch 47: val_acc=59.23% λ=0.5430 CE=0.1460 KD=0.1070
-AKTP Distill E48/50: 100%|██████████████████████████████████████████████████████| 3125/3125 [03:53<00:00, 13.36it/s, loss=0.228, λ=0.6, ce=0.112, kd=0.105]
-Epoch 48: val_acc=59.23% λ=0.5439 CE=0.1456 KD=0.1069
-AKTP Distill E49/50: 100%|█████████████████████████████████████████████████████| 3125/3125 [03:55<00:00, 13.27it/s, loss=0.25, λ=0.624, ce=0.124, kd=0.101]
-Epoch 49: val_acc=58.90% λ=0.5448 CE=0.1440 KD=0.1077
-AKTP Distill E50/50: 100%|████████████████████████████████████████████████████| 3125/3125 [03:54<00:00, 13.32it/s, loss=0.437, λ=0.355, ce=0.238, kd=0.111]
-Epoch 50: val_acc=58.75% λ=0.5443 CE=0.1451 KD=0.1078
+AKTP Distill E1/50: 100%|███████████████████████████████████████████████████████████| 391/391 [01:25<00:00,  4.57it/s, loss=1.32, λ=0.5, ce=1.12, kd=0.197]
+Epoch 1 [WARMUP]: val_acc=50.56% λ=0.5000 CE=1.4240 KD=0.2015
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=50.56%)
+AKTP Distill E2/50: 100%|████████████████████████████████████████████████████████████| 391/391 [01:27<00:00,  4.45it/s, loss=1.29, λ=0.5, ce=1.1, kd=0.187]
+Epoch 2 [WARMUP]: val_acc=54.58% λ=0.5000 CE=1.0140 KD=0.2035
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=54.58%)
+AKTP Distill E3/50: 100%|████████████████████████████████████████████████████████████| 391/391 [01:27<00:00,  4.49it/s, loss=1.11, λ=0.5, ce=0.911, kd=0.2]
+Epoch 3 [WARMUP]: val_acc=56.06% λ=0.5000 CE=0.8833 KD=0.2020
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=56.06%)
+AKTP Distill E4/50: 100%|██████████████████████████████████████████████████████████| 391/391 [01:22<00:00,  4.72it/s, loss=1.03, λ=0.5, ce=0.843, kd=0.185]
+Epoch 4 [WARMUP]: val_acc=57.58% λ=0.5000 CE=0.7906 KD=0.2008
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=57.58%)
+AKTP Distill E5/50: 100%|███████████████████████████████████████████████████████████| 391/391 [01:22<00:00,  4.76it/s, loss=0.966, λ=0.5, ce=0.77, kd=0.19]
+Epoch 5 [WARMUP]: val_acc=57.46% λ=0.5000 CE=0.7175 KD=0.1988
+AKTP Distill E6/50: 100%|████████████████████████████████████████████████████████| 391/391 [01:22<00:00,  4.74it/s, loss=0.791, λ=0.46, ce=0.653, kd=0.129]
+Epoch 6: val_acc=58.13% λ=0.4115 CE=0.5152 KD=0.1274
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.13%)
+AKTP Distill E7/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:21<00:00,  4.82it/s, loss=0.775, λ=0.434, ce=0.641, kd=0.122]
+Epoch 7: val_acc=58.39% λ=0.4691 CE=0.5481 KD=0.1374
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=58.39%)
+AKTP Distill E8/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:20<00:00,  4.85it/s, loss=0.663, λ=0.465, ce=0.519, kd=0.132]
+Epoch 8: val_acc=59.32% λ=0.4625 CE=0.4966 KD=0.1359
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.32%)
+AKTP Distill E9/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:19<00:00,  4.93it/s, loss=0.659, λ=0.437, ce=0.523, kd=0.125]
+Epoch 9: val_acc=59.14% λ=0.4550 CE=0.4523 KD=0.1342
+AKTP Distill E10/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:19<00:00,  4.93it/s, loss=0.621, λ=0.439, ce=0.481, kd=0.122]
+Epoch 10: val_acc=58.85% λ=0.4494 CE=0.4128 KD=0.1323
+AKTP Distill E11/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:19<00:00,  4.94it/s, loss=0.553, λ=0.459, ce=0.411, kd=0.127]
+Epoch 11: val_acc=58.61% λ=0.4431 CE=0.3820 KD=0.1308
+AKTP Distill E12/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:18<00:00,  4.98it/s, loss=0.495, λ=0.436, ce=0.353, kd=0.128]
+Epoch 12: val_acc=58.91% λ=0.4376 CE=0.3502 KD=0.1290
+AKTP Distill E13/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:18<00:00,  4.99it/s, loss=0.481, λ=0.434, ce=0.346, kd=0.119]
+Epoch 13: val_acc=59.37% λ=0.4326 CE=0.3207 KD=0.1273
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.37%)
+AKTP Distill E14/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:18<00:00,  5.00it/s, loss=0.495, λ=0.397, ce=0.36, kd=0.115]
+Epoch 14: val_acc=59.41% λ=0.4288 CE=0.2968 KD=0.1256
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.41%)
+AKTP Distill E15/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:18<00:00,  5.01it/s, loss=0.433, λ=0.422, ce=0.298, kd=0.121]
+Epoch 15: val_acc=59.61% λ=0.4238 CE=0.2772 KD=0.1234
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.61%)
+AKTP Distill E16/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.03it/s, loss=0.406, λ=0.409, ce=0.274, kd=0.114]
+Epoch 16: val_acc=59.04% λ=0.4203 CE=0.2578 KD=0.1220
+AKTP Distill E17/50: 100%|█████████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.02it/s, loss=0.383, λ=0.4, ce=0.247, kd=0.12]
+Epoch 17: val_acc=59.97% λ=0.4166 CE=0.2421 KD=0.1206
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=59.97%)
+AKTP Distill E18/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.03it/s, loss=0.36, λ=0.405, ce=0.229, kd=0.116]
+Epoch 18: val_acc=59.17% λ=0.4134 CE=0.2241 KD=0.1192
+AKTP Distill E19/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.03it/s, loss=0.368, λ=0.385, ce=0.237, kd=0.112]
+Epoch 19: val_acc=59.79% λ=0.4096 CE=0.2126 KD=0.1178
+AKTP Distill E20/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.02it/s, loss=0.395, λ=0.367, ce=0.271, kd=0.105]
+Epoch 20: val_acc=59.39% λ=0.4066 CE=0.2032 KD=0.1164
+AKTP Distill E21/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.03it/s, loss=0.323, λ=0.374, ce=0.199, kd=0.107]
+Epoch 21: val_acc=59.44% λ=0.4037 CE=0.1947 KD=0.1149
+AKTP Distill E22/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:23<00:00,  4.68it/s, loss=0.369, λ=0.37, ce=0.241, kd=0.111]
+Epoch 22: val_acc=59.84% λ=0.4027 CE=0.1797 KD=0.1146
+AKTP Distill E23/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:22<00:00,  4.72it/s, loss=0.324, λ=0.374, ce=0.194, kd=0.11]
+Epoch 23: val_acc=59.77% λ=0.4007 CE=0.1657 KD=0.1139
+AKTP Distill E24/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:22<00:00,  4.72it/s, loss=0.273, λ=0.409, ce=0.143, kd=0.115]
+Epoch 24: val_acc=60.38% λ=0.3987 CE=0.1597 KD=0.1129
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=60.38%)
+AKTP Distill E25/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:22<00:00,  4.73it/s, loss=0.269, λ=0.423, ce=0.139, kd=0.116]
+Epoch 25: val_acc=60.54% λ=0.3980 CE=0.1480 KD=0.1126
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=60.54%)
+AKTP Distill E26/50: 100%|██████████████████████████████████████████████████████| 391/391 [04:21<00:00,  1.50it/s, loss=0.295, λ=0.383, ce=0.169, kd=0.111]
+Epoch 26: val_acc=60.72% λ=0.3976 CE=0.1367 KD=0.1124
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=60.72%)
+AKTP Distill E27/50: 100%|██████████████████████████████████████████████████████| 391/391 [04:49<00:00,  1.35it/s, loss=0.271, λ=0.397, ce=0.147, kd=0.109]
+Epoch 27: val_acc=60.17% λ=0.3958 CE=0.1336 KD=0.1114
+AKTP Distill E28/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:23<00:00,  4.68it/s, loss=0.246, λ=0.397, ce=0.126, kd=0.107]
+Epoch 28: val_acc=61.07% λ=0.3949 CE=0.1267 KD=0.1111
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=61.07%)
+AKTP Distill E29/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:25<00:00,  4.57it/s, loss=0.252, λ=0.369, ce=0.131, kd=0.106]
+Epoch 29: val_acc=60.91% λ=0.3947 CE=0.1185 KD=0.1112
+AKTP Distill E30/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:25<00:00,  4.57it/s, loss=0.252, λ=0.365, ce=0.129, kd=0.105]
+Epoch 30: val_acc=61.45% λ=0.3939 CE=0.1140 KD=0.1108
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=61.45%)
+AKTP Distill E31/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:18<00:00,  4.98it/s, loss=0.233, λ=0.387, ce=0.111, kd=0.106]
+Epoch 31: val_acc=61.04% λ=0.3935 CE=0.1092 KD=0.1106
+AKTP Distill E32/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.12it/s, loss=0.237, λ=0.389, ce=0.11, kd=0.114]
+Epoch 32: val_acc=61.43% λ=0.3941 CE=0.1023 KD=0.1113
+AKTP Distill E33/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.10it/s, loss=0.226, λ=0.395, ce=0.0999, kd=0.111]
+Epoch 33: val_acc=61.50% λ=0.3944 CE=0.0969 KD=0.1116
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=61.50%)
+AKTP Distill E34/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.09it/s, loss=0.227, λ=0.361, ce=0.101, kd=0.108]
+Epoch 34: val_acc=61.75% λ=0.3938 CE=0.0925 KD=0.1117
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=61.75%)
+AKTP Distill E35/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.06it/s, loss=0.212, λ=0.399, ce=0.0882, kd=0.113]
+Epoch 35: val_acc=61.78% λ=0.3946 CE=0.0887 KD=0.1121
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=61.78%)
+AKTP Distill E36/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.11it/s, loss=0.205, λ=0.408, ce=0.0808, kd=0.113]
+Epoch 36: val_acc=61.78% λ=0.3936 CE=0.0861 KD=0.1122
+AKTP Distill E37/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.12it/s, loss=0.222, λ=0.355, ce=0.0999, kd=0.107]
+Epoch 37: val_acc=61.90% λ=0.3944 CE=0.0828 KD=0.1127
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=61.90%)
+AKTP Distill E38/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.12it/s, loss=0.209, λ=0.378, ce=0.0838, kd=0.112]
+Epoch 38: val_acc=62.20% λ=0.3942 CE=0.0809 KD=0.1128
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=62.20%)
+AKTP Distill E39/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:18<00:00,  5.00it/s, loss=0.211, λ=0.393, ce=0.077, kd=0.123]
+Epoch 39: val_acc=62.55% λ=0.3946 CE=0.0784 KD=0.1133
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=62.55%)
+AKTP Distill E40/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.09it/s, loss=0.207, λ=0.362, ce=0.0849, kd=0.109]
+Epoch 40: val_acc=62.67% λ=0.3956 CE=0.0762 KD=0.1138
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=62.67%)
+AKTP Distill E41/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.10it/s, loss=0.206, λ=0.358, ce=0.0809, kd=0.11]
+Epoch 41: val_acc=62.55% λ=0.3950 CE=0.0740 KD=0.1142
+AKTP Distill E42/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.11it/s, loss=0.196, λ=0.383, ce=0.0744, kd=0.111]
+Epoch 42: val_acc=62.61% λ=0.3967 CE=0.0724 KD=0.1147
+AKTP Distill E43/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.09it/s, loss=0.202, λ=0.391, ce=0.0733, kd=0.118]
+Epoch 43: val_acc=62.73% λ=0.3960 CE=0.0717 KD=0.1148
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=62.73%)
+AKTP Distill E44/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:16<00:00,  5.08it/s, loss=0.199, λ=0.388, ce=0.0746, kd=0.112]
+Epoch 44: val_acc=62.69% λ=0.3972 CE=0.0703 KD=0.1154
+AKTP Distill E45/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:17<00:00,  5.05it/s, loss=0.201, λ=0.388, ce=0.0754, kd=0.113]
+Epoch 45: val_acc=62.57% λ=0.3972 CE=0.0695 KD=0.1157
+AKTP Distill E46/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:18<00:00,  5.00it/s, loss=0.196, λ=0.384, ce=0.0724, kd=0.112]
+Epoch 46: val_acc=62.80% λ=0.3980 CE=0.0687 KD=0.1161
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=62.80%)
+AKTP Distill E47/50: 100%|██████████████████████████████████████████████████████| 391/391 [01:18<00:00,  4.98it/s, loss=0.193, λ=0.404, ce=0.068, kd=0.115]
+Epoch 47: val_acc=62.95% λ=0.3977 CE=0.0692 KD=0.1157
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=62.95%)
+AKTP Distill E48/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:18<00:00,  4.96it/s, loss=0.194, λ=0.407, ce=0.0666, kd=0.117]
+Epoch 48: val_acc=63.03% λ=0.3988 CE=0.0681 KD=0.1164
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=63.03%)
+AKTP Distill E49/50: 100%|███████████████████████████████████████████████████████| 391/391 [01:19<00:00,  4.94it/s, loss=0.201, λ=0.388, ce=0.07, kd=0.118]
+Epoch 49: val_acc=63.10% λ=0.3978 CE=0.0681 KD=0.1160
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=63.10%)
+AKTP Distill E50/50: 100%|█████████████████████████████████████████████████████| 391/391 [01:19<00:00,  4.94it/s, loss=0.198, λ=0.368, ce=0.0718, kd=0.112]
+Epoch 50: val_acc=63.20% λ=0.3985 CE=0.0676 KD=0.1167
+  ✓ Saved best distilled student at ./checkpoints_aktp\b0_aktp_tiny_best.pth (acc=63.20%)
 Saved training history to ./results_aktp\aktp_distill_history.json
 Saved training plots to ./results_aktp\aktp_distill_plots.png
 
 ============================================================
 Distillation complete!
-Best validation accuracy: 59.26%
+Best validation accuracy: 63.20%
 Best checkpoint: ./checkpoints_aktp\b0_aktp_tiny_best.pth
 Latest checkpoint: ./checkpoints_aktp\b0_aktp_tiny_latest.pth
 History JSON: ./results_aktp\aktp_distill_history.json

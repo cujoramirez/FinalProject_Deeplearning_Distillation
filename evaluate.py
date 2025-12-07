@@ -6,7 +6,7 @@ Compare baseline EfficientNet-B0 vs Distilled EfficientNet-B0
 import os
 import json
 import time
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Callable
 
 import torch
 import torch.nn as nn
@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
 from tqdm import tqdm
+from torchvision import models
 
 import config
 from data_loader import get_dataloaders
@@ -24,7 +25,7 @@ from utils import set_seed, accuracy, load_checkpoint, create_dirs
 
 def measure_inference_time(
     model: nn.Module,
-    input_size: Tuple[int, int, int, int] = (1, 3, 224, 224),
+    input_size: Tuple[int, int, int, int] = (1, 3, 64, 64),
     num_iterations: int = 100,
     device: str = 'cuda',
     warmup: int = 10
@@ -437,97 +438,137 @@ better performance than training the student model from scratch.
     return report
 
 
+def build_torchvision_b0(num_classes: int):
+    model = models.efficientnet_b0(weights=None)
+    model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)
+    return model
+
+
+def build_torchvision_b2(num_classes: int):
+    model = models.efficientnet_b2(weights=None)
+    model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)
+    return model
+
+
+def build_torchvision_r18(num_classes: int):
+    model = models.resnet18(weights=None)
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    return model
+
+
+def load_model_from_spec(spec: Dict, num_classes: int, device: str):
+    kind = spec["kind"]
+    if kind == "timm_b0":
+        model = get_student_model(num_classes)
+    elif kind == "tv_b0":
+        model = build_torchvision_b0(num_classes)
+    elif kind == "tv_b2":
+        model = build_torchvision_b2(num_classes)
+    elif kind == "tv_r18":
+        model = build_torchvision_r18(num_classes)
+    else:
+        raise ValueError(f"Unknown model kind: {kind}")
+
+    ckpt = spec["ckpt"]
+    if not os.path.exists(ckpt):
+        raise FileNotFoundError(f"Checkpoint not found: {ckpt}")
+
+    state = torch.load(ckpt, map_location=device)
+    if isinstance(state, dict) and "model_state_dict" in state:
+        model.load_state_dict(state["model_state_dict"])
+    else:
+        model.load_state_dict(state)
+    return model.to(device)
+
+
+def plot_metric_bars(results: List[Dict], metric: str, title: str, save_path: str = None):
+    labels = [r["model_name"] for r in results]
+    values = [r[metric] for r in results]
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(labels, values, color=plt.cm.tab20.colors[: len(labels)])
+    plt.ylabel(metric.replace("_", " ").title())
+    plt.title(title)
+    plt.xticks(rotation=20, ha="right")
+    plt.grid(axis="y", alpha=0.3)
+    for bar in bars:
+        h = bar.get_height()
+        plt.annotate(f"{h:.2f}", (bar.get_x() + bar.get_width() / 2, h),
+                     ha="center", va="bottom", fontsize=9, xytext=(0, 3), textcoords="offset points")
+    plt.tight_layout()
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches="tight")
+        print(f"Saved {title} to {save_path}")
+    plt.close()
+
+
 def run_full_comparison():
-    """Run complete comparison between baseline and distilled models."""
-    
+    """Run comprehensive comparison across baseline, vanilla distill, AKTP, and teachers."""
+
     set_seed(config.SEED)
     create_dirs()
     device = config.DEVICE
-    
+
     print("=" * 60)
-    print("Loading test data...")
+    print("Loading TinyImageNet test data...")
     print("=" * 60)
-    _, _, test_loader, num_classes = get_dataloaders()
-    
-    # Load models
-    print("\n" + "=" * 60)
-    print("Loading trained models...")
-    print("=" * 60)
-    
-    baseline_model = get_student_model(num_classes)
-    distilled_model = get_student_model(num_classes)
-    
-    # Load checkpoints
-    baseline_path = os.path.join(config.CHECKPOINT_DIR, 'baseline_b0', 'best_model.pth')
-    distilled_path = os.path.join(config.CHECKPOINT_DIR, 'distilled_b0', 'best_model.pth')
-    
-    if not os.path.exists(baseline_path):
-        raise FileNotFoundError(f"Baseline checkpoint not found: {baseline_path}")
-    if not os.path.exists(distilled_path):
-        raise FileNotFoundError(f"Distilled checkpoint not found: {distilled_path}")
-    
-    baseline_model, _, _ = load_checkpoint(baseline_model, baseline_path, device)
-    distilled_model, _, _ = load_checkpoint(distilled_model, distilled_path, device)
-    
-    # Evaluate models
-    print("\n" + "=" * 60)
-    print("Evaluating models...")
-    print("=" * 60)
-    
-    baseline_results = evaluate_model(baseline_model, test_loader, device, "Baseline B0")
-    distilled_results = evaluate_model(distilled_model, test_loader, device, "Distilled B0")
-    
-    # Load training histories
-    baseline_history_path = os.path.join(config.RESULTS_DIR, 'baseline_history.json')
-    distilled_history_path = os.path.join(config.RESULTS_DIR, 'distillation_history.json')
-    
-    if os.path.exists(baseline_history_path) and os.path.exists(distilled_history_path):
-        with open(baseline_history_path, 'r') as f:
-            baseline_history = json.load(f)
-        with open(distilled_history_path, 'r') as f:
-            distilled_history = json.load(f)
-        
-        # Plot training curves
-        plot_training_comparison(
-            baseline_history, distilled_history,
-            save_path=os.path.join(config.RESULTS_DIR, 'training_comparison.png')
-        )
-    
-    # Plot metrics comparison
-    plot_metrics_comparison(
-        baseline_results, distilled_results,
-        save_path=os.path.join(config.RESULTS_DIR, 'metrics_comparison.png')
-    )
-    
-    # Plot confusion matrices
-    plot_confusion_matrix_comparison(
-        baseline_results, distilled_results,
-        save_path=os.path.join(config.RESULTS_DIR, 'confusion_matrices.png')
-    )
-    
-    # Generate report
-    report = generate_comparison_report(
-        baseline_results, distilled_results,
-        save_path=os.path.join(config.RESULTS_DIR, 'comparison_report.txt')
-    )
-    print(report)
-    
-    # Save results as JSON
-    results_json = {
-        'baseline': {
-            k: v for k, v in baseline_results.items() 
-            if k not in ['predictions', 'labels', 'probabilities']
+    _, _, test_loader, num_classes = get_dataloaders(dataset_name="TinyImageNet", batch_size=config.BATCH_SIZE)
+
+    model_specs = [
+        {
+            "model_name": "Baseline B0 TinyImageNet",
+            "kind": "timm_b0",
+            "ckpt": os.path.join(config.CHECKPOINT_DIR, "baseline_b0_tinyimagenet", "best_model.pth"),
         },
-        'distilled': {
-            k: v for k, v in distilled_results.items() 
-            if k not in ['predictions', 'labels', 'probabilities']
-        }
+        {
+            "model_name": "Vanilla Distilled B0",
+            "kind": "tv_b0",
+            "ckpt": os.path.join(config.CHECKPOINT_DIR, "distilled_b0", "best_model.pth"),
+        },
+        {
+            "model_name": "AKTP Distilled B0",
+            "kind": "tv_b0",
+            "ckpt": os.path.join("./checkpoints_aktp", "b0_aktp_tiny_best.pth"),
+        },
+        {
+            "model_name": "Teacher EfficientNet-B2",
+            "kind": "tv_b2",
+            "ckpt": os.path.join("./checkpoints_aktp", "teacher_b2_tiny.pth"),
+        },
+        {
+            "model_name": "Teacher ResNet18",
+            "kind": "tv_r18",
+            "ckpt": os.path.join("./checkpoints_aktp", "teacher_r18_tiny.pth"),
+        },
+    ]
+
+    all_results = []
+    for spec in model_specs:
+        print("\n" + "=" * 60)
+        print(f"Loading {spec['model_name']} from {spec['ckpt']}")
+        print("=" * 60)
+        model = load_model_from_spec(spec, num_classes, device)
+        results = evaluate_model(model, test_loader, device, spec["model_name"])
+        all_results.append(results)
+
+    # Save aggregated results
+    aggregate = {
+        r["model_name"]: {k: v for k, v in r.items() if k not in ["predictions", "labels", "probabilities"]}
+        for r in all_results
     }
-    
-    with open(os.path.join(config.RESULTS_DIR, 'comparison_results.json'), 'w') as f:
-        json.dump(results_json, f, indent=2)
-    
-    return baseline_results, distilled_results
+    agg_path = os.path.join(config.RESULTS_DIR, "comparison_results_all.json")
+    with open(agg_path, "w") as f:
+        json.dump(aggregate, f, indent=2)
+    print(f"Aggregated results saved to {agg_path}")
+
+    # Bar plots for key metrics
+    plot_metric_bars(all_results, "top1_accuracy", "Top-1 Accuracy Comparison",
+                     os.path.join(config.RESULTS_DIR, "metrics_top1_all.png"))
+    plot_metric_bars(all_results, "top5_accuracy", "Top-5 Accuracy Comparison",
+                     os.path.join(config.RESULTS_DIR, "metrics_top5_all.png"))
+    plot_metric_bars(all_results, "f1_macro", "F1 Macro Comparison",
+                     os.path.join(config.RESULTS_DIR, "metrics_f1_all.png"))
+
+    return all_results
 
 
 if __name__ == "__main__":

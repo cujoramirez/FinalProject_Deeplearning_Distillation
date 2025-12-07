@@ -167,10 +167,11 @@ def train_baseline():
     print("Loading dataset...")
     print("=" * 60)
     train_loader, val_loader, test_loader, num_classes = get_dataloaders()
+    dataset_tag = config.DATASET_NAME.lower()
     
     # Create model
     print("\n" + "=" * 60)
-    print("Creating baseline model...")
+    print(f"Creating baseline model for {config.DATASET_NAME}...")
     print("=" * 60)
     model = get_student_model(num_classes).to(device)
     print(f"Model parameters: {count_parameters(model):,}")
@@ -245,9 +246,10 @@ def train_baseline():
             best_val_acc = val_metrics['top1_acc']
             print(f"  New best validation accuracy: {best_val_acc:.2f}%")
         
+        ckpt_dir = os.path.join(config.CHECKPOINT_DIR, f'baseline_b0_{dataset_tag}')
         save_checkpoint(
             model, optimizer, epoch, val_metrics['top1_acc'],
-            os.path.join(config.CHECKPOINT_DIR, 'baseline_b0'),
+            ckpt_dir,
             is_best=is_best
         )
         
@@ -261,7 +263,7 @@ def train_baseline():
     print(f"Best validation accuracy: {best_val_acc:.2f}%")
     
     # Save training history
-    history_path = os.path.join(config.RESULTS_DIR, 'baseline_history.json')
+    history_path = os.path.join(config.RESULTS_DIR, f'baseline_history_{dataset_tag}.json')
     with open(history_path, 'w') as f:
         json.dump(history, f, indent=2)
     print(f"Training history saved to {history_path}")
@@ -273,7 +275,7 @@ def train_baseline():
     
     # Load best model
     best_checkpoint = torch.load(
-        os.path.join(config.CHECKPOINT_DIR, 'baseline_b0', 'best_model.pth'),
+        os.path.join(config.CHECKPOINT_DIR, f'baseline_b0_{dataset_tag}', 'best_model.pth'),
         map_location=device
     )
     model.load_state_dict(best_checkpoint['model_state_dict'])

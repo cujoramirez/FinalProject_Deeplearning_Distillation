@@ -27,13 +27,13 @@ STUDENT_MODEL = "efficientnet_b0"  # Smaller model to be trained
 
 # Pretrained weights
 USE_PRETRAINED_TEACHER = True  # Use ImageNet pretrained weights for teacher
-USE_PRETRAINED_STUDENT = False  # Train student from scratch (or set True for fine-tuning)
+USE_PRETRAINED_STUDENT = True  # Fine-tune student from ImageNet weights for TinyImageNet baseline
 
 # =============================================================================
 # TRAINING CONFIG
 # =============================================================================
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-BATCH_SIZE = 32  # Adjusted for RTX 5070 headroom; lower if OOM
+BATCH_SIZE = 256  # TinyImageNet baseline batch size (lower if OOM)
 NUM_EPOCHS = 50
 LEARNING_RATE = 1e-3
 WEIGHT_DECAY = 1e-4

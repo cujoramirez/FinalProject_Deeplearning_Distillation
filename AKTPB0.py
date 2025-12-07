@@ -91,11 +91,12 @@ class Config:
     lr: float = 1e-3
     weight_decay: float = 1e-4
     early_stopping_patience: int = 10
-    temperature: float = 4.0
-    gamma_cal: float = 0.5
+    temperature: float = 6.0
+    gamma_cal: float = 0.1
     warmup_epochs: int = 5  # NEW: Warmup period
-    warmup_lambda: float = 0.7  # NEW: Fixed lambda during warmup
+    warmup_lambda: float = 0.5  # NEW: Fixed lambda during warmup (KD-heavier)
     aktp_lr_multiplier: float = 0.1  # NEW: Lower learning rate for AKTP module
+    teacher1_weight: float = 0.6  # Weight for teacher 1 logits (teacher2 uses 1-w)
 
     # Device
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -238,26 +239,6 @@ def plot_history(history, cfg: Config, filename: str = "aktp_distill_plots.png")
     return path
 
 
-class CombinerNetwork(nn.Module):
-    """
-    Fuses logits from multiple teachers into a single soft target.
-    """
-
-    def __init__(self, num_teachers, num_classes, hidden_dim=256):
-        super().__init__()
-        input_dim = num_teachers * num_classes
-        self.net = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(hidden_dim, num_classes),
-        )
-
-    def forward(self, logits_list):
-        combined = torch.cat(logits_list, dim=1)
-        return self.net(combined)
-
-
 class AKTP(nn.Module):
     """
     FIXED: Adaptive Knowledge Transfer Protocol with proper initialization and normalization.
@@ -303,8 +284,26 @@ class AKTP(nn.Module):
 
         features = torch.cat([entropy_norm, disagreement_norm], dim=1)
         lambda_val = self.sigmoid(self.fc(features))
-        lambda_val = torch.clamp(lambda_val, 0.1, 0.9)
+        lambda_val = torch.clamp(lambda_val, 0.05, 0.6)
         return lambda_val
+
+
+class CombinerNetwork(nn.Module):
+    """Fuse teacher logits into a unified soft target via a small MLP."""
+
+    def __init__(self, num_teachers: int, num_classes: int, hidden_dim: int = 256):
+        super().__init__()
+        input_dim = num_teachers * num_classes
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(hidden_dim, num_classes),
+        )
+
+    def forward(self, logits_list):
+        combined = torch.cat(logits_list, dim=1)
+        return self.net(combined)
 
 
 class EarlyStopping:
@@ -551,7 +550,9 @@ def distill_with_aktp(train_loader, val_loader, teachers, student, cfg: Config):
                 l_t1 = t1(inputs)
                 l_t2 = t2(inputs)
 
-            fused_logits = combiner([l_t1, l_t2])
+            w1 = min(max(cfg.teacher1_weight, 0.0), 1.0)
+            w2 = 1.0 - w1
+            fused_logits = combiner([w1 * l_t1, w2 * l_t2])
             p_comb = F.softmax(fused_logits / cfg.temperature, dim=1)
 
             l_student = student(inputs)
@@ -672,7 +673,7 @@ def main():
     print("  ✓ Normalized AKTP features")
     print("  ✓ Warmup phase with fixed lambda")
     print("  ✓ Gradient clipping")
-    print("  ✓ Clamped lambda range [0.1, 0.9]")
+    print("  ✓ Clamped lambda range [0.05, 0.6]")
     print("=" * 60 + "\n")
 
     best_path, latest_path, best_acc, history = distill_with_aktp(train_loader, val_loader, (t1, t2), student, cfg)

@@ -255,16 +255,16 @@ def get_food101_dataloaders(batch_size: int = 32, num_workers: int = 4):
 class TinyImageNetValDataset(Dataset):
     """TinyImageNet validation dataset using val_annotations.txt labels."""
 
-    def __init__(self, root: str, transform=None):
+    def __init__(self, root: str, transform=None, class_to_idx=None):
         super().__init__()
         self.root = root
         self.transform = transform
         annotations = os.path.join(root, "val_annotations.txt")
         images_dir = os.path.join(root, "images")
 
-        # Load label mapping
         self.samples = []
-        self.class_to_idx = {}
+        # If train mapping is provided, reuse it to align class indices with ImageFolder
+        self.class_to_idx = class_to_idx if class_to_idx is not None else {}
 
         with open(annotations, "r") as f:
             for line in f:
@@ -318,7 +318,7 @@ def get_tinyimagenet_dataloaders(batch_size: int = 32, num_workers: int = 4):
     ])
 
     train_dataset = datasets.ImageFolder(train_dir, transform=train_transform)
-    val_dataset = TinyImageNetValDataset(val_dir, transform=val_transform)
+    val_dataset = TinyImageNetValDataset(val_dir, transform=val_transform, class_to_idx=train_dataset.class_to_idx)
 
     # For simplicity, use val split as both val and test
     test_dataset = val_dataset

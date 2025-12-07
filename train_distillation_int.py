@@ -12,6 +12,7 @@ from datetime import datetime
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import matplotlib.pyplot as plt
 from torch.optim.lr_scheduler import CosineAnnealingLR, StepLR, ReduceLROnPlateau
 from torchvision import models as tv_models
 from torchvision.models import ResNet18_Weights
@@ -19,19 +20,24 @@ from tqdm import tqdm
 
 import config
 from data_loader import get_dataloaders
-from models import get_teacher_model, get_student_model, DistillationLoss, count_parameters
+from models import DistillationLoss, count_parameters
 TEACHER_B2_CKPT = "./checkpoints_aktp/teacher_b2_tiny.pth"
 TEACHER_R18_CKPT = "./checkpoints_aktp/teacher_r18_tiny.pth"
 STUDENT_INIT_CKPT = None  # set path if you want to start from a saved student
 
 
 def load_teacher_b2(num_classes: int, device: str):
-    teacher_b2 = get_teacher_model(num_classes)
-    if os.path.isfile(TEACHER_B2_CKPT):
-        print(f"Loading TinyImageNet-finetuned B2 from {TEACHER_B2_CKPT}")
-        teacher_b2.load_state_dict(torch.load(TEACHER_B2_CKPT, map_location=device))
-    else:
-        print("No B2 checkpoint found; using ImageNet-1k weights.")
+    # Use torchvision EfficientNet-B2 to match AKTP checkpoints
+    teacher_b2 = tv_models.efficientnet_b2(weights=None)
+    teacher_b2.classifier[1] = nn.Linear(teacher_b2.classifier[1].in_features, num_classes)
+    if not os.path.isfile(TEACHER_B2_CKPT):
+        raise FileNotFoundError(f"Missing teacher B2 checkpoint at {TEACHER_B2_CKPT}; run AKTP teacher training first.")
+    print(f"Loading TinyImageNet-finetuned B2 from {TEACHER_B2_CKPT}")
+    try:
+        state = torch.load(TEACHER_B2_CKPT, map_location=device, weights_only=True)
+    except TypeError:
+        state = torch.load(TEACHER_B2_CKPT, map_location=device)
+    teacher_b2.load_state_dict(state)
     teacher_b2 = teacher_b2.to(device)
     for p in teacher_b2.parameters():
         p.requires_grad = False
@@ -42,11 +48,14 @@ def load_teacher_b2(num_classes: int, device: str):
 def load_teacher_r18(num_classes: int, device: str):
     teacher_r18 = tv_models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
     teacher_r18.fc = nn.Linear(teacher_r18.fc.in_features, num_classes)
-    if os.path.isfile(TEACHER_R18_CKPT):
-        print(f"Loading TinyImageNet-finetuned R18 from {TEACHER_R18_CKPT}")
-        teacher_r18.load_state_dict(torch.load(TEACHER_R18_CKPT, map_location=device))
-    else:
-        print("No R18 checkpoint found; using ImageNet-1k weights.")
+    if not os.path.isfile(TEACHER_R18_CKPT):
+        raise FileNotFoundError(f"Missing teacher R18 checkpoint at {TEACHER_R18_CKPT}; run AKTP teacher training first.")
+    print(f"Loading TinyImageNet-finetuned R18 from {TEACHER_R18_CKPT}")
+    try:
+        state = torch.load(TEACHER_R18_CKPT, map_location=device, weights_only=True)
+    except TypeError:
+        state = torch.load(TEACHER_R18_CKPT, map_location=device)
+    teacher_r18.load_state_dict(state)
     teacher_r18 = teacher_r18.to(device)
     for p in teacher_r18.parameters():
         p.requires_grad = False
@@ -209,6 +218,54 @@ def validate(
     }
 
 
+def plot_history(history: dict, save_path: str):
+    """Plot losses and accuracies over epochs and save to disk."""
+    epochs = list(range(1, len(history.get('train_loss', [])) + 1))
+    if not epochs:
+        return None
+
+    plt.figure(figsize=(12, 10))
+
+    plt.subplot(2, 2, 1)
+    plt.plot(epochs, history.get('train_loss', []), label='Train Loss')
+    plt.plot(epochs, history.get('val_loss', []), label='Val Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Loss')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    plt.subplot(2, 2, 2)
+    plt.plot(epochs, history.get('train_acc', []), label='Train Acc')
+    plt.plot(epochs, history.get('val_acc', []), label='Val Acc')
+    plt.xlabel('Epoch')
+    plt.ylabel('Top-1 Accuracy (%)')
+    plt.title('Accuracy')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    plt.subplot(2, 2, 3)
+    plt.plot(epochs, history.get('soft_loss', []), label='Soft Loss')
+    plt.plot(epochs, history.get('hard_loss', []), label='Hard Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Distillation Components')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    plt.subplot(2, 2, 4)
+    plt.plot(epochs, history.get('learning_rate', []), label='LR', color='tab:orange')
+    plt.xlabel('Epoch')
+    plt.ylabel('Learning Rate')
+    plt.title('LR Schedule')
+    plt.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=150)
+    plt.close()
+    return save_path
+
+
 def train_distillation():
     """Main training function for knowledge distillation."""
     
@@ -230,7 +287,12 @@ def train_distillation():
     print("=" * 60)
     teacher_b2 = load_teacher_b2(num_classes, device)
     teacher_r18 = load_teacher_r18(num_classes, device)
-    student = get_student_model(num_classes).to(device)
+    
+    # Use torchvision EfficientNet-B0 to match AKTP architecture
+    from torchvision.models import EfficientNet_B0_Weights
+    student = tv_models.efficientnet_b0(weights=EfficientNet_B0_Weights.IMAGENET1K_V1)
+    student.classifier[1] = nn.Linear(student.classifier[1].in_features, num_classes)
+    student = student.to(device)
 
     # Optional: initialize student from a checkpoint
     if STUDENT_INIT_CKPT and os.path.isfile(STUDENT_INIT_CKPT):
@@ -238,9 +300,13 @@ def train_distillation():
         state = torch.load(STUDENT_INIT_CKPT, map_location=device)
         student.load_state_dict(state)
     
-    print(f"\nTeacher B2 parameters: {count_parameters(teacher_b2):,} (frozen)")
-    print(f"Teacher R18 parameters: {count_parameters(teacher_r18):,} (frozen)")
-    print(f"Student parameters: {count_parameters(student):,} (trainable)")
+    # Count all parameters (frozen teachers still have params)
+    b2_params = sum(p.numel() for p in teacher_b2.parameters())
+    r18_params = sum(p.numel() for p in teacher_r18.parameters())
+    student_params = count_parameters(student)
+    print(f"\nTeacher B2 parameters: {b2_params:,} (frozen)")
+    print(f"Teacher R18 parameters: {r18_params:,} (frozen)")
+    print(f"Student parameters: {student_params:,} (trainable)")
     
     # Loss and optimizer
     criterion = DistillationLoss(
@@ -339,6 +405,11 @@ def train_distillation():
     with open(history_path, 'w') as f:
         json.dump(history, f, indent=2)
     print(f"Training history saved to {history_path}")
+
+    plot_path = os.path.join(config.RESULTS_DIR, 'distillation_plots.png')
+    plotted = plot_history(history, plot_path)
+    if plotted:
+        print(f"Training curves saved to {plotted}")
     
     # Final test evaluation
     print("\n" + "=" * 60)
@@ -346,10 +417,17 @@ def train_distillation():
     print("=" * 60)
     
     # Load best model
-    best_checkpoint = torch.load(
-        os.path.join(config.CHECKPOINT_DIR, 'distilled_b0', 'best_model.pth'),
-        map_location=device
-    )
+    try:
+        best_checkpoint = torch.load(
+            os.path.join(config.CHECKPOINT_DIR, 'distilled_b0', 'best_model.pth'),
+            map_location=device,
+            weights_only=False
+        )
+    except TypeError:
+        best_checkpoint = torch.load(
+            os.path.join(config.CHECKPOINT_DIR, 'distilled_b0', 'best_model.pth'),
+            map_location=device
+        )
     student.load_state_dict(best_checkpoint['model_state_dict'])
     
     test_metrics = validate(student, test_loader, criterion, device, epoch=-1)
